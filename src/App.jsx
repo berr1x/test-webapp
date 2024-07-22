@@ -22,14 +22,14 @@ function App() {
     
   }, []);
 
-  const onClose = () => {
-    tg.close()
+  const hapticFeedback = () => {
+    tg.HapticFeedback.impactOccurred('soft')
   };
 
   return (
     <div className="App">
       
-      <div className="loading">
+      <div className="loading" onClick={hapticFeedback}>
 
         <div class="loader loader--style8" title="7">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" xmlSpace="preserve">
