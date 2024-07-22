@@ -17,12 +17,11 @@ function App() {
 
   useEffect(() => {
     
-    if (showModal) {
-      tg.themeParams(theme)
-    }
+    tg.themeParams(theme)
     tg.ready();
+    tg.themeParams(theme)
     
-  }, [showModal]);
+  }, []);
 
   const onClose = () => {
     tg.close()
