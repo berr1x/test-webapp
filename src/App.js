@@ -17,9 +17,9 @@ function App() {
 
   useEffect(() => {
     
-    tg.themeParams(theme)
+    tg.themeParams = theme
     tg.ready();
-    tg.themeParams(theme)
+    tg.themeParams = theme
     
   }, []);
 
