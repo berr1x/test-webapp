@@ -6,6 +6,8 @@ function App() {
 
   useEffect(() => {
     tg.ready();
+    tg.setHeaderColor("#000")
+    tg.setBackgroundColor("#000")
   }, []);
 
   const onClose = () => {
