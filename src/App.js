@@ -17,14 +17,15 @@ function App() {
 
   useEffect(() => {
     
-    tg.themeParams = theme
+    tg.setHeaderColor(theme.header_bg_color)
     tg.ready();
-    tg.themeParams = theme
+    tg.setHeaderColor(theme.header_bg_color)
     
   }, []);
 
   const onClose = () => {
-    tg.close()
+    tg.setHeaderColor(theme.header_bg_color)
+    // tg.close()
   };
 
   return (
