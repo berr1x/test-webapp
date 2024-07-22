@@ -19,9 +19,9 @@ const theme = {
 
 function App() {
 
-  const [loadingVisible, setLoadingVisible] = useState(false);
-  const [accountVisible, setAccountVisible] = useState(true);
-  const [opacity, setOpacity] = useState(1);
+  const [loadingVisible, setLoadingVisible] = useState(true);
+  const [accountVisible, setAccountVisible] = useState(false);
+  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
     
@@ -29,9 +29,9 @@ function App() {
     tg.ready();
 
     setTimeout(() => {
-      // setLoadingVisible(false)
-      // setAccountVisible(true)
-      // setOpacity(1)
+      setLoadingVisible(false)
+      setAccountVisible(true)
+      setOpacity(1)
     }, 5000)
     
   }, []);
