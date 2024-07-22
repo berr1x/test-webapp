@@ -13,3 +13,7 @@
 .loading .text {
   font-size: 24px;
 }
+.loading .loader svg path,
+.loading .loader svg rect {
+  fill: #FF0006;
+}

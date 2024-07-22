@@ -37,7 +37,7 @@ const Loading = ({hapticFeedback, hidden}) => {
           </div>
 
           <div className="text">
-            Test App
+            Polemos
           </div>
         </animated.div>
         ) : (

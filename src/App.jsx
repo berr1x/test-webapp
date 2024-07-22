@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Loading from './components/Loading/Loading';
 import Account from './components/Account/Account';
+import Background from './img/backgr.png'
 
 const tg = window.Telegram.WebApp;
 
@@ -25,12 +26,20 @@ function App() {
 
   useEffect(() => {
     
+    document.body.style.backgroundImage = "url('')";
     tg.setHeaderColor(theme.header_bg_color)
     tg.ready();
 
     setTimeout(() => {
+
+      let mainBg = {
+        backgroundImage: "url( " + { Background } + ")"
+      };
       setLoadingVisible(false)
       setAccountVisible(true)
+      document.body.style = { mainBg };
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundSize = "cover";
       setOpacity(1)
     }, 5000)
     
