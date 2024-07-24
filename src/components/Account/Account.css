@@ -1,17 +1,43 @@
 body {
   background-image: url("../../img/backgr.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% auto;
+}
+[nav-content] {
+  display: none;
+}
+[nav-content].active {
+  display: block;
+}
+.click-animation {
+  position: absolute;
+  color: #fff;
+  font-size: 32px;
+  animation: fade-out 1s forwards;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  /* Center the text */
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -150%);
+    /* Move upwards */
+  }
 }
 .checkAccount {
   position: absolute;
-  left: 50%;
   transform: translate(-50%, 0%);
   margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .checkAccount .score {
   display: flex;
@@ -45,14 +71,72 @@ body {
   gap: 5px;
   justify-content: center;
 }
-.panel {
+.checkAccount .coin {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-self: stretch;
-  position: absolute;
-  bottom: 0;
+  padding-top: 50px;
+}
+.checkAccount .coin img {
+  box-shadow: 0px 0px 5px 5px rgba(244, 237, 30, 0.2);
+  border-radius: 100%;
+}
+.panel {
   width: 100%;
-  height: 60px;
+  height: 86px;
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   background-color: #161616;
+}
+.panel.fill > [nav-id] {
+  flex-grow: 1;
+  min-width: 25%;
+}
+.panel > [nav-id] {
+  min-width: 70px;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  line-height: 25px;
+  text-align: center;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: #818181;
+}
+.panel > [nav-id] * {
+  display: block;
+}
+.panel > [nav-id].active {
+  color: #B51310;
+}
+.panel > [nav-id].active > span.tapbtn {
+  color: #E6A932;
+}
+.panel > [nav-id] > i {
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.panel > [nav-id] > i.shadow > img {
+  filter: drop-shadow(0 0 5px #e9c00a);
+}
+.panel > [nav-id] > span {
+  font-weight: 600;
+}
+.panel.no-label > button {
+  min-width: 80px;
+}
+.panel.no-label > button > span {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.2s;
+}
+.panel.no-label > button.active > span {
+  height: 20px;
 }
