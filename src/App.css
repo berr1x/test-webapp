@@ -130,6 +130,7 @@
   box-sizing: border-box;
   font-family: "Montserrat";
   overflow-x: hidden;
+  user-select: none;
 }
 body {
   background: #000;
