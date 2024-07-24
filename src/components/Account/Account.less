@@ -94,6 +94,51 @@ body {
 
 }
 
+.tap {
+
+    .energyBar {
+        
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        bottom: 120px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .energyText {
+            font-weight: 600;
+            gap: 5px;
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+
+        }
+        
+        .backgroundBar {
+            display: block;
+            margin: auto;
+            position: relative;
+            background-color: #32363C;
+            border-radius: 10px;
+            width: 300px;
+            max-width: 100%;
+            .bar {
+                display: block;
+                position: relative;
+                background: linear-gradient(270deg,#F7C243, #FD902B);;
+                width: 300px;
+                height: 15px;
+                border-radius: 10px;
+                border: 2px solid;
+                border-color: #32363C;
+            }
+        }
+    }
+}
+
 .panel {
     // display: flex;
     // flex-direction: column;

@@ -37,6 +37,58 @@ const Account = ({hidden, opacity}) => {
     const [coins, setCoins] = useLocalStorageArray("coins")
     const [clicks, setClicks] = useState([]);
 
+    const [energy, setEnergy] = useState(500);
+    const [barWidth, setBarWidth] = useState(300);
+    const [lastBarWidth, setLastBarWidth] = useState(300);
+    const [lastEnergy, setLastEnergy] = useState(500);
+
+    useEffect(() => {
+        let timer;
+    
+        if (energy < 500) {
+          // If energy is less than 300, set a timeout for 3 seconds
+            timer = setTimeout(() => {
+            // If energy hasn't changed in the last 3 seconds, increase it by 1
+                if (energy === lastEnergy) {
+                    setEnergy(prevEnergy => Math.min(prevEnergy + 1, 500));
+                }
+            }, 1500);
+        }
+    
+        // Cleanup the timer on component unmount or when energy changes
+        return () => clearTimeout(timer);
+    
+    }, [energy, lastEnergy]);
+
+    useEffect(() => {
+        // Update lastEnergy whenever energy changes
+        setLastEnergy(energy);
+    }, [energy]);
+    
+
+    useEffect(() => {
+        let barWidthTimer;
+    
+        if (barWidth < 300) {
+          // If barWidth is less than 300, set a timeout for 3 seconds
+            barWidthTimer = setTimeout(() => {
+            // If barWidth hasn't changed in the last 3 seconds, increase it by 1
+            if (barWidth === lastBarWidth) {
+                setBarWidth(prevBarWidth => Math.min(prevBarWidth + 1.6, 300));
+            }
+        }, 1500);
+        }
+    
+        // Cleanup the timer on component unmount or when barWidth changes
+        return () => clearTimeout(barWidthTimer);
+    
+      }, [barWidth, lastBarWidth]); // This effect depends on barWidth and lastBarWidth
+    
+      useEffect(() => {
+        // Update lastBarWidth whenever barWidth changes
+        setLastBarWidth(barWidth);
+      }, [barWidth]);
+
     useEffect(() => {
         if (localStorage.getItem("coins") == "[]")
         {
@@ -80,6 +132,9 @@ const Account = ({hidden, opacity}) => {
         setTimeout(() => {
             setClicks((prevClicks) => prevClicks.filter((click) => click.id !== newClick.id));
         }, 1000); // Adjust time to match the animation duration
+
+        setEnergy(energy-1)
+        setBarWidth(barWidth-1.6)
 
         setTimeout(() => {
             setSkewX(0)
@@ -142,7 +197,19 @@ const Account = ({hidden, opacity}) => {
                                 ))}
                             </div>
 
+                            
+
                     </animated.div>
+                    <div className='energyBar'>
+                                <div className="energyText">
+                                <img src={require('../../img/energy.png')} alt="dog" width={10} height={14} draggable={false} />
+                                <span>{energy}/500</span>
+                                </div>
+                                <div className='backgroundBar'>
+                                    <div className='bar' style={{width: barWidth}} />
+                                </div>
+                                
+                    </div>
                 </div>
 
                 <div className="rating" nav-content={"4"}>
