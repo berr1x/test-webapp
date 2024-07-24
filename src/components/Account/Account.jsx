@@ -121,7 +121,7 @@ const Account = ({hidden, opacity}) => {
 
                             <div className="dogInfo">
                                 <div className="dogCoin">
-                                    <img src={require('../../img/coin.png')} alt="dog" width={42} height={42} />
+                                    <img src={require('../../img/coin.png')} alt="dog" width={42} height={42} draggable={false} />
                                     <p>{coins}</p>
                                 </div>
                                 <p className='status'>Bronze <span><AiOutlineRight /></span></p>
@@ -129,7 +129,7 @@ const Account = ({hidden, opacity}) => {
 
                             <div className='coin'>
                                 <div onClick={clicked} style={{transform: `skew(${skewY}deg, ${skewX}deg)`, transition: "2s"}}>
-                                    <img src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} />
+                                    <img src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} draggable={false} />
                                 </div>
                                 {clicks.map((click) => (
                                     <div
