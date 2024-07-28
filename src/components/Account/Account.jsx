@@ -45,11 +45,13 @@ const Account = ({hidden, opacity}) => {
 
     // const [username, setUsername] = useState("Андрей Штакельберг");
     const [userData, setUserData] = useState();
+    const [userImage, setUserImage] = useState("none");
 
     useEffect(() => {
         if (tg.initDataUnsafe)
         {
             setUserData(tg.initDataUnsafe.user)
+            setUserImage(tg.initDataUnsafe.user.photo_url)
         }
         
     }, [])
@@ -284,10 +286,14 @@ const Account = ({hidden, opacity}) => {
                         
                         <div className="account">
                             <div className="accountInfo">
-                                <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
+                                {userImage == "none" ? (
+                                    <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
+                                ) : (
+                                    <img src={userImage} alt="dog" width={48} height={48} draggable={false} />
+                                )}
                                 <div className="accountInfoText">
-                                    <p>{userData.username}</p>
-                                    <span>Твой ID: 231 234</span>
+                                    <p>{userData.first_name} {userData.last_name}</p>
+                                    <span>Твой ID: {userData.id}</span>
                                 </div>
                             </div>
                             <div className="place">
