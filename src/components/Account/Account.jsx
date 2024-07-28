@@ -8,6 +8,7 @@ const tg = window.Telegram.WebApp;
 import { animated, useSpring } from '@react-spring/web'
 import { useCallback, useEffect, useState } from 'react';
 
+
 const Account = ({hidden, opacity}) => {
 
     const [sizeW, setSizeW] = useState(256)
@@ -42,12 +43,15 @@ const Account = ({hidden, opacity}) => {
     const [lastBarWidth, setLastBarWidth] = useState(300);
     const [lastEnergy, setLastEnergy] = useState(500);
 
-    const [username, setUsername] = useState("Андрей Штакельберг");
+    // const [username, setUsername] = useState("Андрей Штакельберг");
+    const [userData, setUserData] = useState();
 
     useEffect(() => {
-        const userData = JSON.parse(tg)
-        const username = userData.user.username
-        alert(username)
+        if (tg.initDataUnsafe)
+        {
+            setUserData(tg.initDataUnsafe.user)
+        }
+        
     }, [])
 
     useEffect(() => {
@@ -282,7 +286,7 @@ const Account = ({hidden, opacity}) => {
                             <div className="accountInfo">
                                 <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
                                 <div className="accountInfoText">
-                                    <p>{username}</p>
+                                    <p>{userData.username}</p>
                                     <span>Твой ID: 231 234</span>
                                 </div>
                             </div>
