@@ -29,7 +29,7 @@ function App() {
   const getUserInfo = async (id) => {
     try {
         const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
-            telegramId: tg.initDataUnsafe.user.id
+            telegramId: id
         });
 
         const data = response.data
@@ -45,6 +45,8 @@ function App() {
     tg.setHeaderColor(theme.header_bg_color)
     tg.ready();
     setOpacity(0);
+
+    getUserInfo(tg.initDataUnsafe.user.id)
 
     setTimeout(() => {
       setLoadingVisible(false)

@@ -66,7 +66,7 @@ const Account = ({hidden, opacity, userImage}) => {
         if (tg.initDataUnsafe)
         {
             setUserData(tg.initDataUnsafe.user)
-            setUserImage(tg.initDataUnsafe.user.photo_url)
+            // setUserImage(tg.initDataUnsafe.user.photo_url)
             // getUserInfo(tg.initDataUnsafe.user.id)
         }
     }, [])
