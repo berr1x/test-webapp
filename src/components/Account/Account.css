@@ -147,6 +147,7 @@ body {
   width: 100%;
 }
 .homeAccount .score .info > img {
+  border-radius: 50px;
   filter: drop-shadow(0 0 5px #e9c00a);
 }
 .homeAccount .score .info > p {

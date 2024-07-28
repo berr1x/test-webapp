@@ -24,6 +24,22 @@ function App() {
   const [accountVisible, setAccountVisible] = useState(false);
   const [opacity, setOpacity] = useState(0);
 
+  const [userImage, setUserImage] = useState("");
+
+  const getUserInfo = async (id) => {
+    try {
+        const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
+            telegramId: tg.initDataUnsafe.user.id
+        });
+
+        const data = response.data
+        console.log(data)
+        setUserImage(data[0].photo_url)
+    } catch (err) {
+        console.log(err)
+    }
+  };
+
   useEffect(() => {
   
     tg.setHeaderColor(theme.header_bg_color)
@@ -44,7 +60,7 @@ function App() {
 
   return (
     <div className="App">
-        <Loading hapticFeedback={hapticFeedback} hidden={loadingVisible} />
+        <Loading hapticFeedback={hapticFeedback} hidden={loadingVisible} userImage={userImage} />
         <Account hidden={accountVisible} opacity={opacity} />
     </div>
   );
