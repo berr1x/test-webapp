@@ -2,6 +2,7 @@ import './Account.css'
 import { AiOutlineRight, AiOutlineAppstore } from "react-icons/ai";
 import Coin from '../Coin/Coin';
 import 'animate.css'
+import axios, { AxiosError } from 'axios';
 
 const tg = window.Telegram.WebApp;
 
@@ -47,14 +48,26 @@ const Account = ({hidden, opacity}) => {
     const [userData, setUserData] = useState();
     const [userImage, setUserImage] = useState("none");
 
+    const getUserInfo = async (id) => {
+        try {
+            const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
+                telegramId: id
+            });
+
+            const data = response.data
+            setUserImage(data.photo_url)
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
     useEffect(() => {
         if (tg.initDataUnsafe)
         {
             setUserData(tg.initDataUnsafe.user)
             setUserImage(tg.initDataUnsafe.user.photo_url)
-            console.log(tg.initDataUnsafe.user)
+            getUserInfo(tg.initDataUnsafe.user.id)
         }
-        
     }, [])
 
     useEffect(() => {
@@ -99,10 +112,10 @@ const Account = ({hidden, opacity}) => {
     
       }, [barWidth, lastBarWidth]); // This effect depends on barWidth and lastBarWidth
     
-      useEffect(() => {
-        // Update lastBarWidth whenever barWidth changes
-        setLastBarWidth(barWidth);
-      }, [barWidth]);
+        useEffect(() => {
+            // Update lastBarWidth whenever barWidth changes
+            setLastBarWidth(barWidth);
+        }, [barWidth]);
 
     useEffect(() => {
         if (localStorage.getItem("coins") == "[]")
