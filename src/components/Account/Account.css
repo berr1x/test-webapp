@@ -146,7 +146,7 @@ body {
   gap: 10px;
   width: 100%;
 }
-.homeAccount .score .info > img {
+.homeAccount .score .info > div img {
   border-radius: 50px;
   filter: drop-shadow(0 0 5px #e9c00a);
 }

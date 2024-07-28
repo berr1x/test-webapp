@@ -304,7 +304,9 @@ const Account = ({hidden, opacity}) => {
                                 {userImage == "none" ? (
                                     <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
                                 ) : (
-                                    <img src={userImage} alt="dog" width={48} height={48} draggable={false} />
+                                    <div style={{borderRadius: '50px'}}>
+                                        <img src={userImage} alt="avatar" width={48} height={48} draggable={false} />
+                                    </div>
                                 )}
                                 <div className="accountInfoText">
                                     <p>{userData.first_name} {userData.last_name}</p>
