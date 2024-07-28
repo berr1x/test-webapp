@@ -3,7 +3,6 @@ import './App.css';
 import Loading from './components/Loading/Loading';
 import Account from './components/Account/Account';
 import 'animate.css'
-import axios from 'axios';
 
 const tg = window.Telegram.WebApp;
 
@@ -25,29 +24,11 @@ function App() {
   const [accountVisible, setAccountVisible] = useState(false);
   const [opacity, setOpacity] = useState(0);
 
-  const [userImage, setUserImage] = useState("");
-
-  const getUserInfo = async (id) => {
-    try {
-        const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
-            telegramId: id
-        });
-
-        const data = response.data
-        console.log(data)
-        setUserImage(data[0].photo_url)
-    } catch (err) {
-        console.log(err)
-    }
-  };
-
   useEffect(() => {
   
     tg.setHeaderColor(theme.header_bg_color)
     tg.ready();
     setOpacity(0);
-
-    getUserInfo(tg.initDataUnsafe.user.id)
 
     setTimeout(() => {
       setLoadingVisible(false)
@@ -63,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-        <Loading hapticFeedback={hapticFeedback} hidden={loadingVisible} userImage={userImage} />
+        <Loading hapticFeedback={hapticFeedback} hidden={loadingVisible} />
         <Account hidden={accountVisible} opacity={opacity} />
     </div>
   );

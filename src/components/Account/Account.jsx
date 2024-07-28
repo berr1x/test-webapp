@@ -10,7 +10,7 @@ import { animated, useSpring } from '@react-spring/web'
 import { useCallback, useEffect, useState } from 'react';
 
 
-const Account = ({hidden, opacity, userImage}) => {
+const Account = ({hidden, opacity}) => {
 
     const [sizeW, setSizeW] = useState(256)
     const [sizeH, setSizeH] = useState(256)
@@ -46,28 +46,28 @@ const Account = ({hidden, opacity, userImage}) => {
 
     // const [username, setUsername] = useState("Андрей Штакельберг");
     const [userData, setUserData] = useState();
-    // const [userImage, setUserImage] = useState("none");
+    const [userImage, setUserImage] = useState("none");
 
-    // const getUserInfo = async (id) => {
-    //     try {
-    //         const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
-    //             telegramId: id
-    //         });
+    const getUserInfo = async (id) => {
+        try {
+            const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
+                telegramId: id
+            });
 
-    //         const data = response.data
-    //         console.log(data)
-    //         setUserImage(data[0].photo_url)
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // };
+            const data = response.data
+            console.log(data)
+            setUserImage(data[0].photo_url)
+        } catch (err) {
+            console.log(err)
+        }
+    };
 
     useEffect(() => {
         if (tg.initDataUnsafe)
         {
             setUserData(tg.initDataUnsafe.user)
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo(tg.initDataUnsafe.user.id)
         }
     }, [])
 
