@@ -45,8 +45,9 @@ const Account = ({hidden, opacity}) => {
     const [username, setUsername] = useState("Андрей Штакельберг");
 
     useEffect(() => {
-        const userData = tg.initDataUnsafe
-        alert(userData)
+        const userData = JSON.parse(tg.initDataUnsafe)
+        const username = userData.user.username
+        alert(username)
     }, [])
 
     useEffect(() => {
