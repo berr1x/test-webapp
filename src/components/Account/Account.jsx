@@ -55,7 +55,8 @@ const Account = ({hidden, opacity}) => {
             });
 
             const data = response.data
-            setUserImage(data.photo_url)
+            console.log(data)
+            setUserImage(data[0].photo_url)
         } catch (err) {
             console.log(err)
         }
