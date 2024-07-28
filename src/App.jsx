@@ -3,6 +3,7 @@ import './App.css';
 import Loading from './components/Loading/Loading';
 import Account from './components/Account/Account';
 import 'animate.css'
+import axios from 'axios';
 
 const tg = window.Telegram.WebApp;
 
