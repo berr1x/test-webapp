@@ -52,6 +52,7 @@ const Account = ({hidden, opacity}) => {
         {
             setUserData(tg.initDataUnsafe.user)
             setUserImage(tg.initDataUnsafe.user.photo_url)
+            console.log(tg.initDataUnsafe.user)
         }
         
     }, [])
