@@ -173,7 +173,7 @@ body {
             gap: 10px;
             width: 100%;
 
-            > div img {
+            > img {
                 border-radius: 50px;
                 filter: drop-shadow(0 0 5px #e9c00a);
             }
@@ -226,6 +226,178 @@ body {
     }
 }
 
+.referal {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+
+    .referalText {
+        font-size: 17px;
+        font-weight: 400;
+        color: rgb(172, 172, 172);
+        line-height: 1.5;
+    }
+
+    .details {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 20px;
+        width: 100%;
+
+        .textField {
+            display: flex;
+            width: 100%;
+            background-color: #1f1f1f;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            border: 1px solid #3a3a3a;
+
+            .text {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                padding: 10px;
+
+                p {
+                    color: #c0c0c0;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .btn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            background: linear-gradient(to bottom, rgba(255,0,6,0.42) 0%, rgba(0,0,0,0) 100%, transparent 100%);
+            border: 1px solid #790b0a;
+            width: 100%;
+            border-radius: 7px;
+            user-select: text;
+
+            p {
+                font-weight: 500;
+                padding: 15px;
+            }
+        }
+    }
+}
+
+.tasksPanel {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: left;
+    width: 90%;
+
+    .tasksText {
+        font-size: 15px;
+        font-weight: 600;
+        color: rgb(255, 255, 255);
+        line-height: 1.5;
+    }
+}
+
+.taskCards {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    width: 100%;
+
+    .taskCard {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        margin-top: 20px;
+        width: 90%;
+        gap: 15px;
+        // padding: 10px;
+
+        .icon {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #161616;
+            border-radius: 10px;
+            border: 1px solid #FF0000;
+            box-shadow: 0px 9px 8px -3px rgba(255, 0, 0, 0.2);
+
+        }
+
+        .taskName{
+            display: flex;
+            flex-direction: column;
+
+            p {
+                font-size: 15px;
+                font-weight: 400;
+            }
+
+            span {
+                font-size: 13px;
+                color: #a8a8a8;
+            }
+        }
+    }
+}
+
+.slide {
+    display: flex;
+    margin-top: 30px;
+    // align-items: center;
+    width: 90%;
+    gap: 20px;
+
+    .card {
+        display: flex;
+        justify-content: center;
+        width: 252px;
+        height: 266px;
+        border-radius: 25px;
+        box-shadow: 0px -51px 22px -4px rgba(28, 28, 28, 0.9) inset;
+      }
+      .card .cardInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: self-start;
+        justify-content: flex-end;
+        margin-right: 120px;
+        margin-bottom: 10px;
+      }
+      .card .cardInfo p {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .card .cardInfo span {
+        font-size: 14px;
+        font-weight: 300;
+        color: #bdbdbd;
+      }
+      .card #background {
+        display: block;
+        position: absolute;
+        border-radius: 25px;
+        border: 1px solid #414141;
+        z-index: -1;
+      }
+      .card #polemos {
+        margin-top: 60px;
+        display: block;
+        position: absolute;
+      }
+      
+}
+
 .panel {
     // display: flex;
     // flex-direction: column;
@@ -268,8 +440,10 @@ body {
             display: block;
         }
 
+
         &.active {
             color: #B51310;
+            accent-color: #B51310;
 
             > i {
                 svg path{

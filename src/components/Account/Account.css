@@ -146,7 +146,7 @@ body {
   gap: 10px;
   width: 100%;
 }
-.homeAccount .score .info > div img {
+.homeAccount .score .info > img {
   border-radius: 50px;
   filter: drop-shadow(0 0 5px #e9c00a);
 }
@@ -187,6 +187,154 @@ body {
   color: #B51310;
   font-size: 15px;
 }
+.referal {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+.referal .referalText {
+  font-size: 17px;
+  font-weight: 400;
+  color: #acacac;
+  line-height: 1.5;
+}
+.referal .details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+}
+.referal .details .textField {
+  display: flex;
+  width: 100%;
+  background-color: #1f1f1f;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #3a3a3a;
+}
+.referal .details .textField .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+}
+.referal .details .textField .text p {
+  color: #c0c0c0;
+  font-size: 12px;
+}
+.referal .details .btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  background: linear-gradient(to bottom, rgba(255, 0, 6, 0.42) 0%, rgba(0, 0, 0, 0) 100%, transparent 100%);
+  border: 1px solid #790b0a;
+  width: 100%;
+  border-radius: 7px;
+  user-select: text;
+}
+.referal .details .btn p {
+  font-weight: 500;
+  padding: 15px;
+}
+.tasksPanel {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 90%;
+}
+.tasksPanel .tasksText {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+}
+.taskCards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.taskCards .taskCard {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-top: 20px;
+  width: 90%;
+  gap: 15px;
+}
+.taskCards .taskCard .icon {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #161616;
+  border-radius: 10px;
+  border: 1px solid #FF0000;
+  box-shadow: 0px 9px 8px -3px rgba(255, 0, 0, 0.2);
+}
+.taskCards .taskCard .taskName {
+  display: flex;
+  flex-direction: column;
+}
+.taskCards .taskCard .taskName p {
+  font-size: 15px;
+  font-weight: 400;
+}
+.taskCards .taskCard .taskName span {
+  font-size: 13px;
+  color: #a8a8a8;
+}
+.slide {
+  display: flex;
+  margin-top: 30px;
+  width: 90%;
+  gap: 20px;
+}
+.slide .card {
+  display: flex;
+  justify-content: center;
+  width: 252px;
+  height: 266px;
+  border-radius: 25px;
+  box-shadow: 0px -51px 22px -4px rgba(28, 28, 28, 0.9) inset;
+}
+.slide .card .cardInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  justify-content: flex-end;
+  margin-right: 120px;
+  margin-bottom: 10px;
+}
+.slide .card .cardInfo p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.slide .card .cardInfo span {
+  font-size: 14px;
+  font-weight: 300;
+  color: #bdbdbd;
+}
+.slide .card #background {
+  display: block;
+  position: absolute;
+  border-radius: 25px;
+  border: 1px solid #414141;
+  z-index: -1;
+}
+.slide .card #polemos {
+  margin-top: 60px;
+  display: block;
+  position: absolute;
+}
 .panel {
   width: 100%;
   height: 86px;
@@ -220,6 +368,7 @@ body {
 }
 .panel > [nav-id].active {
   color: #B51310;
+  accent-color: #B51310;
 }
 .panel > [nav-id].active > i svg path {
   fill: #B51310;
