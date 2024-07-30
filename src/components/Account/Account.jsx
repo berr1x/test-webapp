@@ -71,8 +71,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.enableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            // getUserInfo(tg.initDataUnsafe.user.id)
-            getUserInfo("5961301232")
+            getUserInfo(tg.initDataUnsafe.user.id)
+            // getUserInfo("5961301232")
         }
     }, [])
 
@@ -148,10 +148,19 @@ const Account = ({hidden, opacity}) => {
 
     const clicked = (e) => {
 
-        // if (energy <= 1)
-        // {
-        //     return
-        // }
+        if (energy <= 1)
+        {
+            return
+        }
+
+        const newClick = { id: Date.now(), x: e.clientX, y: e.clientY };
+        setClicks((prevClicks) => [...prevClicks, newClick]);
+    
+        // Remove click after animation
+        setTimeout(() => {
+            setClicks((prevClicks) => prevClicks.filter((click) => click.id !== newClick.id));
+        }, 1000);
+
         setSizeW(275)
         setSizeH(275)
         
@@ -433,7 +442,9 @@ const Account = ({hidden, opacity}) => {
                             </div>
 
                             <div className='coin'>
-                                <img onClick={clickedText} onTouchEnd={clicked} src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} draggable={false} />
+                                <img onClick={
+                                    clicked
+                                } src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} draggable={false} />
                                 {clicks.map((click) => (
                                     <div
                                         key={click.id}
