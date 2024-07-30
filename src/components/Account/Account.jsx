@@ -71,8 +71,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.enableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            getUserInfo(tg.initDataUnsafe.user.id)
-            // getUserInfo("5961301232")
+            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo("5961301232")
         }
     }, [])
 
@@ -148,10 +148,10 @@ const Account = ({hidden, opacity}) => {
 
     const clicked = (e) => {
 
-        if (energy <= 1)
-        {
-            return
-        }
+        // if (energy <= 1)
+        // {
+        //     return
+        // }
         setSizeW(275)
         setSizeH(275)
         
