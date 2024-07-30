@@ -15,8 +15,8 @@ import SimpleSlider from '../Slider/Slider';
 
 const Account = ({hidden, opacity}) => {
 
-    const [sizeW, setSizeW] = useState(256)
-    const [sizeH, setSizeH] = useState(256)
+    const [sizeW, setSizeW] = useState(280)
+    const [sizeH, setSizeH] = useState(280)
     
     const [skewX, setSkewX] = useState(0)
     const [skewY, setSkewY] = useState(0)
@@ -43,8 +43,8 @@ const Account = ({hidden, opacity}) => {
     const [clicks, setClicks] = useState([]);
 
     const [energy, setEnergy] = useState(500);
-    const [barWidth, setBarWidth] = useState(300);
-    const [lastBarWidth, setLastBarWidth] = useState(300);
+    const [barWidth, setBarWidth] = useState(100);
+    const [lastBarWidth, setLastBarWidth] = useState(100);
     const [lastEnergy, setLastEnergy] = useState(500);
 
     // const [username, setUsername] = useState("Андрей Штакельберг");
@@ -103,12 +103,12 @@ const Account = ({hidden, opacity}) => {
     useEffect(() => {
         let barWidthTimer;
     
-        if (barWidth < 300) {
+        if (barWidth < 100) {
           // If barWidth is less than 300, set a timeout for 3 seconds
             barWidthTimer = setTimeout(() => {
             // If barWidth hasn't changed in the last 3 seconds, increase it by 1
             if (barWidth === lastBarWidth) {
-                setBarWidth(prevBarWidth => Math.min(prevBarWidth + 1.6, 300));
+                setBarWidth(prevBarWidth => Math.min(prevBarWidth + 0.2, 100));
             }
         }, 1500);
         }
@@ -131,6 +131,12 @@ const Account = ({hidden, opacity}) => {
     }, [])
 
     const clickedText = (e) => {
+
+        if (energy <= 1)
+        {
+            return
+        }
+
         const newClick = { id: Date.now(), x: e.clientX, y: e.clientY };
         setClicks((prevClicks) => [...prevClicks, newClick]);
     
@@ -141,57 +147,36 @@ const Account = ({hidden, opacity}) => {
     };
 
     const clicked = (e) => {
-        setSizeW(250)
-        setSizeH(250)
-        const boxWidth = e.currentTarget.offsetWidth;
-        const boxHeight = e.currentTarget.offsetHeight;
-        const rect = e.currentTarget.getBoundingClientRect()
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
 
-        let skewX = 0;
-        let skewY = 0;
-
-        if (x < boxWidth / 2) {
-          skewX = -5; // skew left
-        } else {
-          skewX = 5;  // skew right
+        if (energy <= 1)
+        {
+            return
         }
-
-        if (y < boxHeight / 2) {
-          skewY = -5; // skew up
-        } else {
-          skewY = 5;  // skew down
-        }
-
-        setSkewY(skewY)
-        setSkewX(skewX)
+        setSizeW(275)
+        setSizeH(275)
+        
         let coins = Number(localStorage.getItem("coins"))+1
         setCoins(coins)
 
-         // Adjust time to match the animation duration
-
         setEnergy(energy-1)
-        setBarWidth(barWidth-1.6)
+        setBarWidth(barWidth-0.2)
 
         setTimeout(() => {
             setSkewX(0)
             setSkewY(0)
-            setSizeW(256)
-            setSizeH(256)
+            setSizeW(280)
+            setSizeH(280)
         }, 50)
     };
 
-    const slideInProps = useSpring({
+    const opacityChange = useSpring({
         from: {
-          transform: `translateY(${opacity}%)`, // Начальное положение - выезжает снизу
-          opacity: 0, // Начальная непрозрачность
+            opacity: 0,
         },
         to: {
-          transform: 'translateY(0%)', // Конечное положение - в исходной позиции
-          opacity: 1, // Максимальная непрозрачность
+            opacity: 1,
         },
-        config: { duration: 200 }, // Длительность в миллисекундах (2 секунды)
+        config: { duration: 200 },
     });
 
     const [waveActive1, setWaveActive1] = useState("wave active");
@@ -202,6 +187,8 @@ const Account = ({hidden, opacity}) => {
     const [waveActive5, setWaveActive5] = useState("wave");
 
     const [homeActive, setHomeActive] = useState("home active");
+    const [styleHome, setStyleHome] = useState();
+
     const [friendsActive, setFriendsActive] = useState("friends");
     const [tapActive, setTapActive] = useState("tap");
     const [ratingActive, setRatingActive] = useState("rating");
@@ -216,6 +203,7 @@ const Account = ({hidden, opacity}) => {
             setWaveActiveShadow("icon")
             setWaveActive4("wave")
             setWaveActive5("wave")
+            setStyleHome(opacityChange)
 
             //displays
             setHomeActive("home active")
@@ -291,7 +279,7 @@ const Account = ({hidden, opacity}) => {
             {hidden ? (
             <div class="container">
                 <div className={homeActive} nav-content={"1"}>
-                    <div className="homeAccount">
+                    <div className="homeAccount fadeAnim">
 
                         <div className="score unselectable">
                             <p>Кол-во BOOSTS</p>
@@ -384,7 +372,7 @@ const Account = ({hidden, opacity}) => {
                 </div>
 
                 <div className={friendsActive} nav-content={"2"}>
-                    <div className='friendsAccount'>
+                    <div className='friendsAccount fadeAnim'>
                         <div className='friendsInfo'>
                             <div className='infoCard'>
                                 <p>Приглашенные пользователи:</p>
@@ -431,7 +419,7 @@ const Account = ({hidden, opacity}) => {
 
                 <div className={tapActive} nav-content={"3"}>
                 <img src={require('../../img/backgr.png')} alt="dog" draggable={false} />
-                    <animated.div className="checkAccount" style={slideInProps}>
+                    <div className="checkAccount fadeAnim">
                             <div className="score">
                                 <p>Кол-во BOOSTS</p>
                             </div>
@@ -445,9 +433,7 @@ const Account = ({hidden, opacity}) => {
                             </div>
 
                             <div className='coin'>
-                                <div onClick={clickedText} onTouchEnd={clicked} style={{transform: `skew(${skewY}deg, ${skewX}deg)`, transition: "2s"}}>
-                                    <img src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} draggable={false} />
-                                </div>
+                                <img onClick={clickedText} onTouchEnd={clicked} src={require('../../img/coin_big.png')} alt="dog" width={sizeW} height={sizeH} draggable={false} />
                                 {clicks.map((click) => (
                                     <div
                                         key={click.id}
@@ -461,26 +447,60 @@ const Account = ({hidden, opacity}) => {
 
                             
 
-                    </animated.div>
+                    </div>
                     <div className='energyBar'>
-                                <div className="energyText">
-                                <img src={require('../../img/energy.png')} alt="dog" width={10} height={14} draggable={false} />
-                                <span>{energy}/500</span>
-                                </div>
-                                <div className='backgroundBar'>
-                                    <div className='bar' style={{width: barWidth}} />
-                                </div>
+                        <div className="energyText">
+                            <img src={require('../../img/energy.png')} alt="dog" width={10} height={14} draggable={false} />
+                            <span>{energy}/500</span>
+                        </div>
+                        <div className='backgroundBar'>
+                            <div className='bar' style={{width: `${barWidth}%`}} />
+                        </div>
                                 
                     </div>
                 </div>
 
                 <div className={ratingActive} nav-content={"4"}>
-                    rating
+                    <div className="ratingAccount fadeAnim">
+                        <div className="account unselectable">
+                                <div className="accountInfo">
+                                    {userImage == "none" ? (
+                                        <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
+                                    ) : (
+                                        <div style={{borderRadius: '50px'}}>
+                                            <img src={userImage} alt="avatar" width={48} height={48} draggable={false} />
+                                        </div>
+                                    )}
+                                    <div className="accountInfoText">
+                                        {userData == null ? (
+                                            <>
+                                                <p>Твой ID: 5035389002</p>
+                                                <span>0 rows found</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p>Твой ID: {userData.id}</p>
+                                                <span>0 rows found</span>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                        </div>
+                        <div className="ratingText">
+                            <p>В нашей системе розыгрыша каждый BOOSTS, который вы зарабатываете, увеличивает ваши шансы на победу.</p>
+                            <p>Чем больше у вас BOOSTS, тем больше ваши шансы на победу.</p>
+                        </div>
+                        <div className='leaderBoard'>
+                            <div className='leaderBoardText'>
+                                <p>ТАБЛИЦА ЛИДЕРОВ</p>
+                                <span>Пока здесь пусто :(</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className={tasksActive} nav-content={"5"}>
-                    <div className="homeAccount">
-                        
+                    <div className="homeAccount fadeAnim">
                         <div className="account unselectable">
                             <div className="accountInfo">
                                 {userImage == "none" ? (

@@ -35,7 +35,7 @@ body {
 
 .checkAccount {
     position: absolute;
-    transform: translate(-50%,0%);
+    // transform: translate(-50%,0%);
     margin-top: auto;
     display: flex;
     flex-direction: column;
@@ -84,11 +84,15 @@ body {
 
     .coin {
         display: flex;
-        padding-top: 50px;
-        
+        align-items: center;
+        justify-content: center;
+        padding-top: 80px;
+        width: 100%;
+
         img {
             box-shadow: 0px 0px 5px 5px rgba(244, 237, 30, 0.2);
             border-radius: 100%;
+            transition: .1s;
         }
     }
 
@@ -112,9 +116,10 @@ body {
         gap: 10px;
         align-items: center;
         justify-content: center;
-        bottom: 120px;
+        bottom: 14%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 100%;
 
         .energyText {
             font-weight: 600;
@@ -129,22 +134,34 @@ body {
             display: block;
             margin: auto;
             position: relative;
-            background-color: #32363C;
+            background-color: inherit;
+            height: 11px;
             border-radius: 10px;
-            width: 300px;
-            max-width: 100%;
+            width: 90%;
+            border: .5px solid rgba(255,255,255,.5);
+            box-shadow: 2px 2px 6.8px #fff inset;
+            // max-width: 100%;
+
             .bar {
-                display: block;
-                position: relative;
-                background: linear-gradient(270deg,#F7C243, #FD902B);;
-                width: 300px;
-                height: 15px;
+                // display: block;
+                // position: relative;
+                // background: linear-gradient(270deg,#F7C243, #FD902B);
+                // width: 300px;
+                // height: 100%;
+                // border-radius: 10px;
+                // border: 2px solid;
+                // border-color: #32363C;
+                transition: .1s;
+                height: 100%;
+                background: linear-gradient(170deg,#f7c243 7.58%,#fd902b 69.55%),linear-gradient(95deg,#f9e160,#e5a322 76.82%),#32363c;
                 border-radius: 10px;
-                border: 2px solid;
-                border-color: #32363C;
             }
         }
     }
+}
+
+.fadeAnim {
+    animation: fade 0.5s ease-out;
 }
 
 .homeAccount {
@@ -507,6 +524,74 @@ body {
     }
 }
 
+.ratingAccount {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .account {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        width: 90%;
+
+        .accountInfo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .accountInfoText {
+                > p {
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                > span {
+                    color: gray;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+
+    .ratingText {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-top: 30px;
+
+        > p {
+            color: rgb(153, 153, 153);
+            font-weight: 400;
+        }
+    }
+
+    .leaderBoard {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-top: 70px;
+
+        .leaderBoardText {
+            > p {
+                font-size: 12px;
+                color:#B51310;
+                font-weight: 500;
+                margin-bottom: 20px;
+            }
+            > span {
+                display: flex;
+                justify-content: center;
+                font-size: 12px;
+                color:#8d8d8d;
+            }
+        }
+    }
+
+}
+
 .panel {
     // display: flex;
     // flex-direction: column;
@@ -604,5 +689,17 @@ body {
                 }
             }
         }
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    1% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
