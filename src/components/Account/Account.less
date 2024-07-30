@@ -359,43 +359,152 @@ body {
     gap: 20px;
 
     .card {
-        display: flex;
-        justify-content: center;
-        width: 252px;
-        height: 266px;
-        border-radius: 25px;
-        box-shadow: 0px -51px 22px -4px rgba(28, 28, 28, 0.9) inset;
-      }
-      .card .cardInfo {
+            display: flex;
+            justify-content: center;
+            width: 252px;
+            height: 266px;
+            border-radius: 25px;
+            box-shadow: 0px -51px 22px -4px rgba(28, 28, 28, 0.9) inset;
+        }
+        .card .cardInfo {
+            display: flex;
+            flex-direction: column;
+            align-items: self-start;
+            justify-content: flex-end;
+            margin-right: 120px;
+            margin-bottom: 10px;
+        }
+        .card .cardInfo p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .card .cardInfo span {
+            font-size: 14px;
+            font-weight: 300;
+            color: #bdbdbd;
+        }
+        .card #background {
+            display: block;
+            position: absolute;
+            border-radius: 25px;
+            border: 1px solid #414141;
+            z-index: -1;
+        }
+        .card #polemos {
+            margin-top: 60px;
+            display: block;
+            position: absolute;
+        }
+}
+
+.friendsAccount {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .friendsInfo {
         display: flex;
         flex-direction: column;
-        align-items: self-start;
-        justify-content: flex-end;
-        margin-right: 120px;
-        margin-bottom: 10px;
-      }
-      .card .cardInfo p {
-        font-size: 16px;
-        font-weight: 500;
-      }
-      .card .cardInfo span {
-        font-size: 14px;
-        font-weight: 300;
-        color: #bdbdbd;
-      }
-      .card #background {
-        display: block;
-        position: absolute;
-        border-radius: 25px;
-        border: 1px solid #414141;
-        z-index: -1;
-      }
-      .card #polemos {
-        margin-top: 60px;
-        display: block;
-        position: absolute;
-      }
-      
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        gap: 30px;
+
+        .infoCard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            > p {
+                font-size: 17px;
+                font-weight: 500;
+            }
+
+            .statistic {
+                margin-top: 15px;
+                display: flex;
+                align-items: end;
+                gap: 10px;
+
+                > p {
+                    font-size: 40px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .referalInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // text-align: center;
+        justify-content: center;
+        width: 90%;
+        margin-top: 40px;
+
+        .referalText {
+            font-size: 17px;
+            font-weight: 400;
+            color: rgb(172, 172, 172);
+            line-height: 1.5;
+        }
+    
+        .details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 20px;
+            width: 100%;
+    
+            .textField {
+                display: flex;
+                width: 100%;
+                background-color: #1f1f1f;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                border: 1px solid #3a3a3a;
+    
+                .text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    padding: 10px;
+    
+                    p {
+                        color: #c0c0c0;
+                        font-size: 12px;
+                    }
+                }
+            }
+    
+            .btn {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+                background: linear-gradient(to bottom, rgba(255,0,6,0.42) 0%, rgba(0,0,0,0) 100%, transparent 100%);
+                border: 1px solid #790b0a;
+                width: 100%;
+                border-radius: 7px;
+                user-select: text;
+    
+                p {
+                    font-weight: 500;
+                    padding: 15px;
+                }
+            }
+        }
+    }
 }
 
 .panel {

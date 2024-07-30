@@ -384,7 +384,49 @@ const Account = ({hidden, opacity}) => {
                 </div>
 
                 <div className={friendsActive} nav-content={"2"}>
-                    friends
+                    <div className='friendsAccount'>
+                        <div className='friendsInfo'>
+                            <div className='infoCard'>
+                                <p>Приглашенные пользователи:</p>
+                                <div className='statistic'>
+                                    <img src={require('../../img/chel.png')} alt="dog" width={42} height={52} draggable={false} />
+                                    <p>9990</p>
+                                </div>
+                            </div>
+                            <div className='infoCard'>
+                                <p>Участники розыгрыша от Polemos</p>
+                                <div className='statistic'>
+                                    <img src={require('../../img/chel.png')} alt="dog" width={42} height={52} draggable={false} />
+                                    <p>8398</p>
+                                </div>
+                            </div>
+                            <div className='infoCard'>
+                                <p>Общее охваченное число участников</p>
+                                <div className='statistic'>
+                                    <img src={require('../../img/chel.png')} alt="dog" width={42} height={52} draggable={false} />
+                                    <p>8398</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="referalInfo">
+                            <div className='referalText unselectable'>
+                                    <p>Get Tasks — rise in the ranking by inviting friends</p>
+                                </div>
+                                <div className='details'>
+                                    <div className="textField">
+                                        <div className="text">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.5633 4.2049H6.74346C6.59726 4.2049 6.45705 4.26297 6.35367 4.36635C6.2503 4.46973 6.19222 4.60994 6.19222 4.75614V7.51235H3.43601C3.28981 7.51235 3.1496 7.57043 3.04622 7.6738C2.94284 7.77718 2.88477 7.91739 2.88477 8.06359V16.8835C2.88477 17.0297 2.94284 17.1699 3.04622 17.2733C3.1496 17.3766 3.28981 17.4347 3.43601 17.4347H12.2559C12.4021 17.4347 12.5423 17.3766 12.6457 17.2733C12.749 17.1699 12.8071 17.0297 12.8071 16.8835V14.1273H15.5633C15.7095 14.1273 15.8497 14.0692 15.9531 13.9658C16.0565 13.8624 16.1146 13.7222 16.1146 13.576V4.75614C16.1146 4.60994 16.0565 4.46973 15.9531 4.36635C15.8497 4.26297 15.7095 4.2049 15.5633 4.2049ZM11.7046 16.3322H3.98725V8.61483H11.7046V16.3322ZM15.0121 13.0248H12.8071V8.06359C12.8071 7.91739 12.749 7.77718 12.6457 7.6738C12.5423 7.57043 12.4021 7.51235 12.2559 7.51235H7.2947V5.30738H15.0121V13.0248Z" fill="white"/>
+                                            </svg>
+                                            <p>https://join.us.referall/231234</p>
+                                        </div>
+                                    </div>
+                                    <div className='btn unselectable'>
+                                        <p>Поделиться</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className={tapActive} nav-content={"3"}>
@@ -437,7 +479,71 @@ const Account = ({hidden, opacity}) => {
                 </div>
 
                 <div className={tasksActive} nav-content={"5"}>
-                    tasks
+                    <div className="homeAccount">
+                        
+                        <div className="account unselectable">
+                            <div className="accountInfo">
+                                {userImage == "none" ? (
+                                    <img src={require('../../img/avatar.png')} alt="dog" width={48} height={48} draggable={false} />
+                                ) : (
+                                    <div style={{borderRadius: '50px'}}>
+                                        <img src={userImage} alt="avatar" width={48} height={48} draggable={false} />
+                                    </div>
+                                )}
+                                <div className="accountInfoText">
+                                    {userData == null ? (
+                                        <>
+                                            <p>b e r r i x</p>
+                                            <span>Твой ID: 5035389002</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p>{userData.first_name} {userData.last_name}</p>
+                                            <span>Твой ID: {userData.id}</span>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="place">
+                                <p>Place</p>
+                                <span>#1501</span>
+                            </div>
+                        </div>
+
+                        <div className="referal">
+                            <div className='referalText unselectable'>
+                                <p>Получите +2000 BOOSTS за каждого друга, которого вы пригласите по этой ссылке:</p>
+                            </div>
+                            <div className='details'>
+                                <div className="textField">
+                                    <div className="text">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.5633 4.2049H6.74346C6.59726 4.2049 6.45705 4.26297 6.35367 4.36635C6.2503 4.46973 6.19222 4.60994 6.19222 4.75614V7.51235H3.43601C3.28981 7.51235 3.1496 7.57043 3.04622 7.6738C2.94284 7.77718 2.88477 7.91739 2.88477 8.06359V16.8835C2.88477 17.0297 2.94284 17.1699 3.04622 17.2733C3.1496 17.3766 3.28981 17.4347 3.43601 17.4347H12.2559C12.4021 17.4347 12.5423 17.3766 12.6457 17.2733C12.749 17.1699 12.8071 17.0297 12.8071 16.8835V14.1273H15.5633C15.7095 14.1273 15.8497 14.0692 15.9531 13.9658C16.0565 13.8624 16.1146 13.7222 16.1146 13.576V4.75614C16.1146 4.60994 16.0565 4.46973 15.9531 4.36635C15.8497 4.26297 15.7095 4.2049 15.5633 4.2049ZM11.7046 16.3322H3.98725V8.61483H11.7046V16.3322ZM15.0121 13.0248H12.8071V8.06359C12.8071 7.91739 12.749 7.77718 12.6457 7.6738C12.5423 7.57043 12.4021 7.51235 12.2559 7.51235H7.2947V5.30738H15.0121V13.0248Z" fill="white"/>
+                                        </svg>
+                                        <p>https://join.us.referall/231234</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable'>
+                                    <p>Поделиться</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='tasksPanel'>
+                            <div className='tasksText unselectable'>
+                                <p>Выполняй задания и получай</p>
+                                <p>до 5 000 BOOSTS за выполненные задания</p>
+                            </div>
+                            <div className='taskCards unselectable'>
+                                <TaskCard img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
+                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
+                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
+                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"}/>
+                            </div>
+                        </div>
+
+                        <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
+                    </div>
                 </div>
 
                 <nav className="panel">
