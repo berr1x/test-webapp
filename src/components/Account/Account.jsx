@@ -5,6 +5,7 @@ import 'animate.css'
 import axios, { AxiosError } from 'axios';
 import TaskCard from '../TaskCard/TaskCard';
 import Flickity from 'flickity';
+import LeaderBoardCard from '../LeaderBoardCard/LeaderBoardCard'
 
 const tg = window.Telegram.WebApp;
 
@@ -51,6 +52,8 @@ const Account = ({hidden, opacity}) => {
     const [userData, setUserData] = useState(null);
     const [userImage, setUserImage] = useState("none");
 
+    const [leaderBoardInfo, setLeaderBoardInfo] = useState([]);
+
     const getUserInfo = async (id) => {
         try {
             const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
@@ -58,12 +61,27 @@ const Account = ({hidden, opacity}) => {
             });
 
             const data = response.data
-            console.log(data)
+            // console.log(data)
             setUserImage(data[0].photo_url)
         } catch (err) {
             console.log(err)
         }
     };
+
+    useEffect (() => {
+        axios.post('https://polemos.na4u.ru/getLeaderBoard')
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setLeaderBoardInfo(response.data);
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    }, [])
 
     useEffect(() => {
         if (tg.initDataUnsafe)
@@ -73,6 +91,7 @@ const Account = ({hidden, opacity}) => {
             // setUserImage(tg.initDataUnsafe.user.photo_url)
             getUserInfo(tg.initDataUnsafe.user.id)
             // getUserInfo("5961301232")
+            
         }
     }, [])
 
@@ -504,7 +523,17 @@ const Account = ({hidden, opacity}) => {
                         <div className='leaderBoard'>
                             <div className='leaderBoardText'>
                                 <p>ТАБЛИЦА ЛИДЕРОВ</p>
-                                <span>Пока здесь пусто :(</span>
+                                {/* <span>Пока здесь пусто :(</span> */}
+                            </div>
+                            <div className='leaderBoardContainer'>
+                                {leaderBoardInfo.map((item, index) => (
+                                    <LeaderBoardCard
+                                        key={index}
+                                        avatar={item.photo_url}
+                                        name={item.name}
+                                        coins={item.balance}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>

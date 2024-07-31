@@ -1,0 +1,29 @@
+.leaderBoardCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid #1d1d1d;
+}
+.leaderBoardCard .cardLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.leaderBoardCard .cardLeft > img {
+  border-radius: 30px;
+}
+.leaderBoardCard .cardLeft > p {
+  font-size: 18px;
+  font-weight: 500;
+}
+.leaderBoardCard .cardRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.leaderBoardCard .cardRight > p {
+  font-weight: 500;
+  font-size: 18px;
+}
