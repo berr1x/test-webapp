@@ -87,7 +87,7 @@ const Account = ({hidden, opacity}) => {
         if (tg.initDataUnsafe)
         {
             setUserData(tg.initDataUnsafe.user)
-            tg.enableVerticalSwipes()
+            tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
             getUserInfo(tg.initDataUnsafe.user.id)
             // getUserInfo("5961301232")
