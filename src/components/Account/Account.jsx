@@ -172,6 +172,8 @@ const Account = ({hidden, opacity}) => {
             return
         }
 
+        tg.HapticFeedback.impactOccurred('soft')
+
         const newClick = { id: Date.now(), x: e.clientX, y: e.clientY };
         setClicks((prevClicks) => [...prevClicks, newClick]);
     

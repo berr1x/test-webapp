@@ -28,6 +28,8 @@ function App() {
   
     tg.setHeaderColor(theme.header_bg_color)
     tg.ready();
+    tg.enableClosingConfirmation()
+    tg.expand()
     setOpacity(0);
 
     setTimeout(() => {
