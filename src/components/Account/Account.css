@@ -29,6 +29,7 @@ body {
   }
 }
 .checkAccount {
+  touch-action: none;
   position: absolute;
   margin-top: auto;
   display: flex;
@@ -81,6 +82,9 @@ body {
   border-radius: 100%;
   transition: 0.1s;
 }
+.tap {
+  touch-action: none;
+}
 .tap > img {
   display: flex;
   position: absolute;
@@ -128,6 +132,7 @@ body {
   animation: fade 0.5s ease-out;
 }
 .homeAccount {
+  touch-action: none;
   position: absolute;
   margin-top: 50px;
   display: flex;
@@ -193,6 +198,7 @@ body {
   font-size: 15px;
 }
 .referal {
+  touch-action: none;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -267,6 +273,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  touch-action: none;
 }
 .taskCards .taskCard {
   display: flex;
@@ -341,6 +348,7 @@ body {
   position: absolute;
 }
 .friendsAccount {
+  touch-action: none;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -442,6 +450,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  touch-action: none;
 }
 .ratingAccount .account {
   display: flex;

@@ -1,0 +1,26 @@
+.membersCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid #1d1d1d;
+}
+.membersCard .cardLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.membersCard .cardLeft > p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.membersCard .cardRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.membersCard .cardRight > p {
+  font-weight: 400;
+  font-size: 16px;
+}

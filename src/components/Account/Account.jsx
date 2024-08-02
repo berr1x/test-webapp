@@ -12,6 +12,7 @@ const tg = window.Telegram.WebApp;
 import { animated, useSpring } from '@react-spring/web'
 import { useCallback, useEffect, useState } from 'react';
 import SimpleSlider from '../Slider/Slider';
+import MembersCard from '../MembersCard/MembersCard';
 
 
 const Account = ({hidden, opacity}) => {
@@ -53,6 +54,7 @@ const Account = ({hidden, opacity}) => {
     const [userImage, setUserImage] = useState("none");
 
     const [leaderBoardInfo, setLeaderBoardInfo] = useState([]);
+    const [membersInfo, setMembersInfo] = useState([]);
 
     const getUserInfo = async (id) => {
         try {
@@ -74,6 +76,19 @@ const Account = ({hidden, opacity}) => {
                 // Проверка на успешное получение данных
                 if (response.status === 200) {
                     setLeaderBoardInfo(response.data);
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+
+        axios.post('https://polemos.na4u.ru/getAllUsers')
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setMembersInfo(response.data);
                 } else {
                     console.error('Error fetching data', response);
                 }
@@ -224,6 +239,33 @@ const Account = ({hidden, opacity}) => {
     const [ratingActive, setRatingActive] = useState("rating");
     const [tasksActive, setTasksActive] = useState("tasks");
 
+    // ---- TASKS ---- //
+    const [twitterTask, setTwitterTask] = useState("twitter")
+
+
+
+    const twitterClick = () => {
+        console.log("123")
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter active")
+    }
+
+    /////////////////////
+
+
     const navigateMenuHandler = (e) => {
         if (e.currentTarget.getAttribute('nav-id') == 1){
             //waves
@@ -241,6 +283,8 @@ const Account = ({hidden, opacity}) => {
             setTapActive("tap")
             setRatingActive("rating")
             setTasksActive("tasks")
+            setTwitterTask("twitter")
+
         } else if (e.currentTarget.getAttribute('nav-id') == 2){
             //waves
             setWaveActive1("wave")
@@ -256,6 +300,7 @@ const Account = ({hidden, opacity}) => {
             setTapActive("tap")
             setRatingActive("rating")
             setTasksActive("tasks")
+            setTwitterTask("twitter")
         } else if (e.currentTarget.getAttribute('nav-id') == 3){
             //waves
             setWaveActive1("wave")
@@ -271,6 +316,8 @@ const Account = ({hidden, opacity}) => {
             setTapActive("tap active")
             setRatingActive("rating")
             setTasksActive("tasks")
+            setTwitterTask("twitter")
+
         } else if (e.currentTarget.getAttribute('nav-id') == 4){
             //waves
             setWaveActive1("wave")
@@ -286,6 +333,8 @@ const Account = ({hidden, opacity}) => {
             setTapActive("tap")
             setRatingActive("rating active")
             setTasksActive("tasks")
+            setTwitterTask("twitter")
+
         } else if (e.currentTarget.getAttribute('nav-id') == 5){
             //waves
             setWaveActive1("wave")
@@ -301,6 +350,8 @@ const Account = ({hidden, opacity}) => {
             setTapActive("tap")
             setRatingActive("rating")
             setTasksActive("tasks active")
+            setTwitterTask("twitter")
+
         }
     };
 
@@ -538,7 +589,27 @@ const Account = ({hidden, opacity}) => {
                                 ))}
                             </div>
                         </div>
+                        <div className='leaderBoard'>
+                            <div className='leaderBoardText'>
+                                <p>ТАБЛИЦА ВСЕХ УЧАСТНИКОВ</p>
+                                {/* <span>Пока здесь пусто :(</span> */}
+                            </div>
+                            <div className='leaderBoardContainer'>
+                                    <MembersCard
+                                        kerg={"Row"}
+                                        id={"ID"}
+                                    />
+                                {membersInfo.map((item, index) => (
+                                    <MembersCard
+                                        key={index}
+                                        kerg={index+1}
+                                        id={item.telegramId}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
+                    <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
                 </div>
 
                 <div className={tasksActive} nav-content={"5"}>
@@ -596,7 +667,7 @@ const Account = ({hidden, opacity}) => {
                                 <p>Выполняй задания и получай</p>
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
-                            <div className='taskCards unselectable'>
+                            <div className='taskCards unselectable' onClick={twitterClick}>
                                 <TaskCard img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
                                 <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
                                 <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
@@ -606,6 +677,10 @@ const Account = ({hidden, opacity}) => {
 
                         <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
                     </div>
+                </div>
+
+                <div className={twitterTask} nav-content={"6"}>
+                    taskinfo
                 </div>
 
                 <nav className="panel">
