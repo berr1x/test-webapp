@@ -365,11 +365,7 @@ const Account = ({hidden, opacity}) => {
 
     const twitterClickFirst = () => {
 
-        let ok = false;
-        const result = tg.showConfirm("Я уверен, что подписался на Твиттер", ok)
-
-        if (ok) {
-            //waves
+        const ok = () => {
             setWaveActive1("wave")
             setWaveActive2("wave")
             setWaveActive3("wave")
@@ -386,6 +382,8 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext active")
         }
+        tg.showConfirm("Я уверен, что подписался на Твиттер", ok)
+
     };
 
     return (
