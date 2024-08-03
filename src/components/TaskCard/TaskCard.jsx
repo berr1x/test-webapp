@@ -1,8 +1,8 @@
 
-const TaskCard = ({img, taskName, taskDesc}) => {
+const TaskCard = ({img, taskName, taskDesc, onClick}) => {
 
     return (
-        <div className='taskCard'>
+        <div className='taskCard' onClick={onClick}>
             <div className='icon'>
                 <img src={img} alt="dog" width={20} height={20} draggable={false} />
             </div>

@@ -104,8 +104,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            getUserInfo(tg.initDataUnsafe.user.id)
-            // getUserInfo("5961301232")
+            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo("5961301232")
             
         }
     }, [])
@@ -241,6 +241,7 @@ const Account = ({hidden, opacity}) => {
 
     // ---- TASKS ---- //
     const [twitterTask, setTwitterTask] = useState("twitter")
+    const [twitterTaskNext, setTwitterTaskNext] = useState("twitterNext")
 
 
 
@@ -261,6 +262,7 @@ const Account = ({hidden, opacity}) => {
         setRatingActive("rating")
         setTasksActive("tasks")
         setTwitterTask("twitter active")
+        setTwitterTaskNext("twitterNext")
     }
 
     /////////////////////
@@ -284,6 +286,7 @@ const Account = ({hidden, opacity}) => {
             setRatingActive("rating")
             setTasksActive("tasks")
             setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 2){
             //waves
@@ -301,6 +304,8 @@ const Account = ({hidden, opacity}) => {
             setRatingActive("rating")
             setTasksActive("tasks")
             setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+                
         } else if (e.currentTarget.getAttribute('nav-id') == 3){
             //waves
             setWaveActive1("wave")
@@ -317,6 +322,7 @@ const Account = ({hidden, opacity}) => {
             setRatingActive("rating")
             setTasksActive("tasks")
             setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 4){
             //waves
@@ -334,6 +340,7 @@ const Account = ({hidden, opacity}) => {
             setRatingActive("rating active")
             setTasksActive("tasks")
             setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 5){
             //waves
@@ -351,7 +358,32 @@ const Account = ({hidden, opacity}) => {
             setRatingActive("rating")
             setTasksActive("tasks active")
             setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
 
+        }
+    };
+
+    const twitterClickFirst = async () => {
+
+        const result = await tg.showConfirm("Я уверен, что подписался на Твиттер")
+
+        if (result) {
+            //waves
+            setWaveActive1("wave")
+            setWaveActive2("wave")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave")
+            setWaveActive5("wave active")
+
+            //displays
+            setHomeActive("home")
+            setFriendsActive("friends")
+            setTapActive("tap")
+            setRatingActive("rating")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext active")
         }
     };
 
@@ -427,7 +459,7 @@ const Account = ({hidden, opacity}) => {
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
                             <div className='taskCards unselectable'>
-                                <TaskCard img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
+                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
                                 <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
                                 <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
                                 <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"}/>
@@ -491,7 +523,7 @@ const Account = ({hidden, opacity}) => {
                                         </div>
                                     </div>
                                     <div className='btn unselectable'>
-                                        <p>Поделиться</p>
+                                        <p className='unselectable'>Поделиться</p>
                                     </div>
                                 </div>
                         </div>
@@ -539,7 +571,6 @@ const Account = ({hidden, opacity}) => {
                         <div className='backgroundBar'>
                             <div className='bar' style={{width: `${barWidth}%`}} />
                         </div>
-                                
                     </div>
                 </div>
 
@@ -667,8 +698,8 @@ const Account = ({hidden, opacity}) => {
                                 <p>Выполняй задания и получай</p>
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
-                            <div className='taskCards unselectable' onClick={twitterClick}>
-                                <TaskCard img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
+                            <div className='taskCards unselectable'>
+                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
                                 <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
                                 <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
                                 <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"}/>
@@ -680,7 +711,37 @@ const Account = ({hidden, opacity}) => {
                 </div>
 
                 <div className={twitterTask} nav-content={"6"}>
-                    taskinfo
+                    <div className='taskContainer fadeAnim'>
+                        <div className='taskTop'>
+                            <img src={require('../../img/peoples.png')} alt="peoples" width={84} height={84} draggable={false} />
+                            <p>Как получить +200 BOOSTS за подписку на Твиттер?</p>
+                        </div>
+                        <div className="taskBottom">
+                            <div className='taskInfo'>
+                                <p>1. Подпишитесь на Твиттер Polemos</p>
+                                <p>2. Пришлите ссылку на Twitter</p>
+                            </div>
+                            <div className='taskButtons'>
+                                <div className="textField">
+                                    <div className="text unselectable">
+                                        <p>Subscribe on Twitter</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable' onClick={twitterClickFirst}>
+                                    <p>Проверить задание</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={twitterTaskNext} nav-content={"7"}>
+                    <div className='taskContainer'>
+                        <div className='taskTop'>
+                            <img src={require('../../img/peoples.png')} alt="peoples" width={84} height={84} draggable={false} />
+                            <p>Введите ссылку на ваш аккаунт</p>
+                        </div>
+                    </div>
                 </div>
 
                 <nav className="panel">

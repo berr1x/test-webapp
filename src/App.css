@@ -130,6 +130,7 @@
   box-sizing: border-box;
   font-family: "Montserrat";
   overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(202, 25, 25, 0.199);
 }
 .unselectable {
   -webkit-touch-callout: none;
