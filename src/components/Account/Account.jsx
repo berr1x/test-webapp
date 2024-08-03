@@ -364,26 +364,25 @@ const Account = ({hidden, opacity}) => {
     };
 
     const twitterClickFirst = () => {
-
-        const ok = () => {
-            setWaveActive1("wave")
-            setWaveActive2("wave")
-            setWaveActive3("wave")
-            setWaveActiveShadow("icon")
-            setWaveActive4("wave")
-            setWaveActive5("wave active")
-
-            //displays
-            setHomeActive("home")
-            setFriendsActive("friends")
-            setTapActive("tap")
-            setRatingActive("rating")
-            setTasksActive("tasks")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext active")
-        }
-        tg.showConfirm("Я уверен, что подписался на Твиттер", ok)
-
+        tg.showConfirm("Я уверен, что подписался на Твиттер", (ok) => {
+            if (ok) {
+                setWaveActive1("wave")
+                setWaveActive2("wave")
+                setWaveActive3("wave")
+                setWaveActiveShadow("icon")
+                setWaveActive4("wave")
+                setWaveActive5("wave active")
+    
+                //displays
+                setHomeActive("home")
+                setFriendsActive("friends")
+                setTapActive("tap")
+                setRatingActive("rating")
+                setTasksActive("tasks")
+                setTwitterTask("twitter")
+                setTwitterTaskNext("twitterNext active")
+            }
+        })
     };
 
     return (
