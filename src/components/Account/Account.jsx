@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios';
 import TaskCard from '../TaskCard/TaskCard';
 import Flickity from 'flickity';
 import LeaderBoardCard from '../LeaderBoardCard/LeaderBoardCard'
+import { TextField } from '@mui/material';
 
 const tg = window.Telegram.WebApp;
 
@@ -104,8 +105,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            // getUserInfo(tg.initDataUnsafe.user.id)
-            getUserInfo("5961301232")
+            getUserInfo(tg.initDataUnsafe.user.id)
+            // getUserInfo("5961301232")
             
         }
     }, [])
@@ -240,128 +241,13 @@ const Account = ({hidden, opacity}) => {
     const [tasksActive, setTasksActive] = useState("tasks");
 
     // ---- TASKS ---- //
+
+    // ---- TWITTER TASK ---- //
     const [twitterTask, setTwitterTask] = useState("twitter")
     const [twitterTaskNext, setTwitterTaskNext] = useState("twitterNext")
-
-
-
-    const twitterClick = () => {
-        console.log("123")
-        //waves
-        setWaveActive1("wave")
-        setWaveActive2("wave")
-        setWaveActive3("wave")
-        setWaveActiveShadow("icon")
-        setWaveActive4("wave")
-        setWaveActive5("wave active")
-
-        //displays
-        setHomeActive("home")
-        setFriendsActive("friends")
-        setTapActive("tap")
-        setRatingActive("rating")
-        setTasksActive("tasks")
-        setTwitterTask("twitter active")
-        setTwitterTaskNext("twitterNext")
-    }
-
-    /////////////////////
-
-
-    const navigateMenuHandler = (e) => {
-        if (e.currentTarget.getAttribute('nav-id') == 1){
-            //waves
-            setWaveActive1("wave active")
-            setWaveActive2("wave")
-            setWaveActive3("wave")
-            setWaveActiveShadow("icon")
-            setWaveActive4("wave")
-            setWaveActive5("wave")
-            setStyleHome(opacityChange)
-
-            //displays
-            setHomeActive("home active")
-            setFriendsActive("friends")
-            setTapActive("tap")
-            setRatingActive("rating")
-            setTasksActive("tasks")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext")
-
-        } else if (e.currentTarget.getAttribute('nav-id') == 2){
-            //waves
-            setWaveActive1("wave")
-            setWaveActive2("wave active")
-            setWaveActive3("wave")
-            setWaveActiveShadow("icon")
-            setWaveActive4("wave")
-            setWaveActive5("wave")
-
-            //displays
-            setHomeActive("home")
-            setFriendsActive("friends active")
-            setTapActive("tap")
-            setRatingActive("rating")
-            setTasksActive("tasks")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext")
-                
-        } else if (e.currentTarget.getAttribute('nav-id') == 3){
-            //waves
-            setWaveActive1("wave")
-            setWaveActive2("wave")
-            setWaveActive3("wave active")
-            setWaveActiveShadow("icon shadow")
-            setWaveActive4("wave")
-            setWaveActive5("wave")
-
-            //displays
-            setHomeActive("home")
-            setFriendsActive("friends")
-            setTapActive("tap active")
-            setRatingActive("rating")
-            setTasksActive("tasks")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext")
-
-        } else if (e.currentTarget.getAttribute('nav-id') == 4){
-            //waves
-            setWaveActive1("wave")
-            setWaveActive2("wave")
-            setWaveActive3("wave")
-            setWaveActiveShadow("icon")
-            setWaveActive4("wave active")
-            setWaveActive5("wave")
-
-            //displays
-            setHomeActive("home")
-            setFriendsActive("friends")
-            setTapActive("tap")
-            setRatingActive("rating active")
-            setTasksActive("tasks")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext")
-
-        } else if (e.currentTarget.getAttribute('nav-id') == 5){
-            //waves
-            setWaveActive1("wave")
-            setWaveActive2("wave")
-            setWaveActive3("wave")
-            setWaveActiveShadow("icon")
-            setWaveActive4("wave")
-            setWaveActive5("wave active")
-
-            //displays
-            setHomeActive("home")
-            setFriendsActive("friends")
-            setTapActive("tap")
-            setRatingActive("rating")
-            setTasksActive("tasks active")
-            setTwitterTask("twitter")
-            setTwitterTaskNext("twitterNext")
-
-        }
-    };
+    const [twitterTaskDone, setTwitterTaskDone] = useState("twitterDone")
+    const [twitterTaskStatus, setTwitterTastStatus] = useLocalStorageArray("twitterTask")
+    ////////////////////////////
 
     const twitterClickFirst = () => {
         tg.showConfirm("Я уверен, что подписался на Твиттер", (ok) => {
@@ -383,6 +269,179 @@ const Account = ({hidden, opacity}) => {
                 setTwitterTaskNext("twitterNext active")
             }
         })
+        // setWaveActive1("wave")
+        // setWaveActive2("wave")
+        // setWaveActive3("wave")
+        // setWaveActiveShadow("icon")
+        // setWaveActive4("wave")
+        // setWaveActive5("wave active")
+
+        // //displays
+        // setHomeActive("home")
+        // setFriendsActive("friends")
+        // setTapActive("tap")
+        // setRatingActive("rating")
+        // setTasksActive("tasks")
+        // setTwitterTask("twitter")
+        // setTwitterTaskNext("twitterNext active")
+        // setTwitterTaskDone("twitterDone")
+    };
+
+    const twitterClickDone = () => {
+        setWaveActive1("wave active")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave")
+        setStyleHome(opacityChange)
+        //displays
+        setHomeActive("home active")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+
+        setTwitterTastStatus("wait")
+    };
+
+
+    const twitterClick = () => {
+
+        if (twitterTaskStatus == "none") {
+            tg.showAlert("Вы уже выполнили это задание")
+            return
+        }
+
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter active")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+    }
+
+    /////////////////////
+
+    useEffect(() => {
+        if (localStorage.getItem("twitterTask") == "[]") {
+            setTwitterTastStatus("none")
+        }
+    }, [])
+
+
+    const navigateMenuHandler = (e) => {
+        if (e.currentTarget.getAttribute('nav-id') == 1){
+            //waves
+            setWaveActive1("wave active")
+            setWaveActive2("wave")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave")
+            setWaveActive5("wave")
+            setStyleHome(opacityChange)
+
+            //displays
+            setHomeActive("home active")
+            setFriendsActive("friends")
+            setTapActive("tap")
+            setRatingActive("rating")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+
+        } else if (e.currentTarget.getAttribute('nav-id') == 2){
+            //waves
+            setWaveActive1("wave")
+            setWaveActive2("wave active")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave")
+            setWaveActive5("wave")
+
+            //displays
+            setHomeActive("home")
+            setFriendsActive("friends active")
+            setTapActive("tap")
+            setRatingActive("rating")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+                
+        } else if (e.currentTarget.getAttribute('nav-id') == 3){
+            //waves
+            setWaveActive1("wave")
+            setWaveActive2("wave")
+            setWaveActive3("wave active")
+            setWaveActiveShadow("icon shadow")
+            setWaveActive4("wave")
+            setWaveActive5("wave")
+
+            //displays
+            setHomeActive("home")
+            setFriendsActive("friends")
+            setTapActive("tap active")
+            setRatingActive("rating")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+
+        } else if (e.currentTarget.getAttribute('nav-id') == 4){
+            //waves
+            setWaveActive1("wave")
+            setWaveActive2("wave")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave active")
+            setWaveActive5("wave")
+
+            //displays
+            setHomeActive("home")
+            setFriendsActive("friends")
+            setTapActive("tap")
+            setRatingActive("rating active")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+
+        } else if (e.currentTarget.getAttribute('nav-id') == 5){
+            //waves
+            setWaveActive1("wave")
+            setWaveActive2("wave")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave")
+            setWaveActive5("wave active")
+
+            //displays
+            setHomeActive("home")
+            setFriendsActive("friends")
+            setTapActive("tap")
+            setRatingActive("rating")
+            setTasksActive("tasks active")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+
+        }
     };
 
     return (
@@ -457,10 +516,10 @@ const Account = ({hidden, opacity}) => {
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
                             <div className='taskCards unselectable'>
-                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
-                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
-                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
-                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"}/>
+                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
+                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
+                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
+                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
                             </div>
                         </div>
 
@@ -697,10 +756,10 @@ const Account = ({hidden, opacity}) => {
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
                             <div className='taskCards unselectable'>
-                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"}/>
-                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"}/>
-                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"}/>
-                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"}/>
+                                <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
+                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
+                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
+                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
                             </div>
                         </div>
 
@@ -739,8 +798,29 @@ const Account = ({hidden, opacity}) => {
                             <img src={require('../../img/peoples.png')} alt="peoples" width={84} height={84} draggable={false} />
                             <p>Введите ссылку на ваш аккаунт</p>
                         </div>
+                        <div className='taskBottom'>
+                            <div className='taskInfo'>
+                                <p>Ссылка на Twitter должна выглядеть так:</p>
+                            </div>
+                            <div className='taskButtons'>
+                                <div className="textField">
+                                    <div className="text unselectable">
+                                        <p style={{fontSize: "14px", fontWeight: "400"}} contentEditable>https://twitter.com/ВАШ_АККАУНТ</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable' onClick={twitterClickDone}>
+                                    <p>Получить +200 BOOSTS</p>
+                                </div>
+                            </div>
+                            <div className="taskSuperBottom">
+                                <p>Важно : запрещено использовать фейки/боты.</p>
+                                <span>Мы проверяем каждого участника и в случае махинаций - аккаунт будет заблокирован и участие в розыгрыше онулировано. Нажимая на кнопку вы согласны с этими условиями</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
 
                 <nav className="panel">
                     <button className={waveActive1} nav-id="1" onClick={navigateMenuHandler}>

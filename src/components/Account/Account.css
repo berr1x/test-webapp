@@ -278,10 +278,21 @@ body {
 .taskCards .taskCard {
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
   margin-top: 20px;
+}
+.taskCards .taskCard .cardLeft {
+  display: flex;
+  align-items: center;
+  justify-content: left;
   width: 90%;
   gap: 15px;
+}
+.taskCards .taskCard .cardRight {
+  display: flex;
+  align-items: center;
 }
 .taskCards .taskCard .icon {
   display: flex;
@@ -521,6 +532,20 @@ body {
   font-size: 20px;
   font-weight: 500;
 }
+.taskContainer .taskSuperBottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+.taskContainer .taskSuperBottom > p {
+  color: #acacac;
+  font-weight: 600;
+  font-size: 16px;
+}
+.taskContainer .taskSuperBottom > span {
+  color: gray;
+}
 .taskContainer .taskBottom {
   display: flex;
   width: 90%;
@@ -544,6 +569,11 @@ body {
   justify-content: center;
   margin-top: 30px;
 }
+.taskContainer .taskBottom .taskButtons .textFieldReact {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+}
 .taskContainer .taskBottom .taskButtons .textField {
   cursor: pointer;
   display: flex;
@@ -561,10 +591,16 @@ body {
   gap: 5px;
   padding: 15px;
 }
+.taskContainer .taskBottom .taskButtons .textField .text [contenteditable]:focus {
+  outline: 0px solid transparent;
+}
 .taskContainer .taskBottom .taskButtons .textField .text p {
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
+  border: none;
+  padding: 4px;
+  cursor: text;
 }
 .taskContainer .taskBottom .taskButtons .btn {
   cursor: pointer;

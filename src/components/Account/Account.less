@@ -338,11 +338,24 @@ body {
     .taskCard {
         display: flex;
         align-items: center;
-        justify-content: left;
+        justify-content: space-between;
+        width: 100%;
+        gap: 15px;
         margin-top: 20px;
+        // padding: 10px;
+
+        .cardLeft {
+        display: flex;
+        align-items: center;
+        justify-content: left;
         width: 90%;
         gap: 15px;
-        // padding: 10px;
+        }
+
+        .cardRight {
+            display: flex;
+            align-items: center;
+        }
 
         .icon {
             display: flex;
@@ -625,6 +638,22 @@ body {
         }
     }
 
+    .taskSuperBottom {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        line-height: 1.5;
+
+        > p {
+            color: #acacac;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        > span {
+            color: gray;
+        }
+    }
+
     .taskBottom {
         display: flex;
         width: 90%;
@@ -650,6 +679,12 @@ body {
             justify-content: center;
             margin-top: 30px;
 
+            .textFieldReact {
+                display: flex;
+                width: 100%;
+                margin-top: 20px;
+            }
+
             .textField {
                 cursor: pointer;
                 display: flex;
@@ -667,10 +702,17 @@ body {
                     gap: 5px;
                     padding: 15px;
     
+                    [contenteditable]:focus {
+                        outline: 0px solid transparent;
+                    }
+
                     p {
                         color: #ffffff;
                         font-size: 16px;
                         font-weight: 500;
+                        border: none;
+                        padding: 4px;
+                        cursor: text;
                     }
                 }
             }
