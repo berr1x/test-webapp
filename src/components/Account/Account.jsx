@@ -288,24 +288,25 @@ const Account = ({hidden, opacity}) => {
     };
 
     const twitterClickDone = () => {
-        setWaveActive1("wave active")
-        setWaveActive2("wave")
-        setWaveActive3("wave")
-        setWaveActiveShadow("icon")
-        setWaveActive4("wave")
-        setWaveActive5("wave")
-        setStyleHome(opacityChange)
-        //displays
-        setHomeActive("home active")
-        setFriendsActive("friends")
-        setTapActive("tap")
-        setRatingActive("rating")
-        setTasksActive("tasks")
-        setTwitterTask("twitter")
-        setTwitterTaskNext("twitterNext")
-        setTwitterTaskDone("twitterDone")
-
         setTwitterTastStatus("wait")
+        tg.showAlert("Задание отправлено на проверку", () => {
+            setWaveActive1("wave active")
+            setWaveActive2("wave")
+            setWaveActive3("wave")
+            setWaveActiveShadow("icon")
+            setWaveActive4("wave")
+            setWaveActive5("wave")
+            setStyleHome(opacityChange)
+            //displays
+            setHomeActive("home active")
+            setFriendsActive("friends")
+            setTapActive("tap")
+            setRatingActive("rating")
+            setTasksActive("tasks")
+            setTwitterTask("twitter")
+            setTwitterTaskNext("twitterNext")
+            setTwitterTaskDone("twitterDone")
+        })
     };
 
 
