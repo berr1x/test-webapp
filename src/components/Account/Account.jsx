@@ -363,11 +363,12 @@ const Account = ({hidden, opacity}) => {
         }
     };
 
-    const twitterClickFirst = async () => {
+    const twitterClickFirst = () => {
 
-        const result = await tg.showConfirm("Я уверен, что подписался на Твиттер")
+        let ok = false;
+        const result = tg.showConfirm("Я уверен, что подписался на Твиттер", ok)
 
-        if (result) {
+        if (ok) {
             //waves
             setWaveActive1("wave")
             setWaveActive2("wave")
