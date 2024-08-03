@@ -311,7 +311,7 @@ const Account = ({hidden, opacity}) => {
 
     const twitterClick = () => {
 
-        if (twitterTaskStatus == "none") {
+        if (twitterTaskStatus != "none") {
             tg.showAlert("Вы уже выполнили это задание")
             return
         }
