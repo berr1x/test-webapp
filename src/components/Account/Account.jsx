@@ -4,15 +4,13 @@ import Coin from '../Coin/Coin';
 import 'animate.css'
 import axios, { AxiosError } from 'axios';
 import TaskCard from '../TaskCard/TaskCard';
-import Flickity from 'flickity';
 import LeaderBoardCard from '../LeaderBoardCard/LeaderBoardCard'
-import { TextField } from '@mui/material';
+import TaskProgressCard from '../TaskProgressCard/TaskProgressCard';
 
 const tg = window.Telegram.WebApp;
 
 import { animated, useSpring } from '@react-spring/web'
 import { useCallback, useEffect, useState } from 'react';
-import SimpleSlider from '../Slider/Slider';
 import MembersCard from '../MembersCard/MembersCard';
 
 
@@ -249,6 +247,12 @@ const Account = ({hidden, opacity}) => {
     const [twitterTaskStatus, setTwitterTastStatus] = useLocalStorageArray("twitterTask")
     ////////////////////////////
 
+    // ---  STATUS TASKS  --- //
+    const [goldStatusTask, setGoldStatusTask] = useState("goldStatus")
+    const [silverStatusTask, setSilverStatusTask] = useState("silverStatus")
+    const [bronzeStatusTask, setBronzeStatusTask] = useState("bronzeStatus")
+    ///////////////////////////
+
     const twitterClickFirst = () => {
         tg.showConfirm("Я уверен, что подписался на Твиттер", (ok) => {
             if (ok) {
@@ -285,6 +289,97 @@ const Account = ({hidden, opacity}) => {
         // setTwitterTask("twitter")
         // setTwitterTaskNext("twitterNext active")
         // setTwitterTaskDone("twitterDone")
+    };
+
+    const goToTasks = () => {
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks active")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+        setGoldStatusTask("goldStatus")
+        setSilverStatusTask("silverStatus")
+        setBronzeStatusTask("bronzeStatus")
+    };
+
+    const goldStatusClick = () => {
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+        setGoldStatusTask("goldStatus active")
+        setBronzeStatusTask("bronzeStatus")
+    };
+
+    const silverStatusClick = () => {
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+        setGoldStatusTask("goldStatus")
+        setSilverStatusTask("silverStatus active")
+        setBronzeStatusTask("bronzeStatus")
+    };
+
+    const bronzeStatusClick = () => {
+        //waves
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave active")
+
+        //displays
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+        setGoldStatusTask("goldStatus")
+        setSilverStatusTask("silverStatus")
+        setBronzeStatusTask("bronzeStatus active")
     };
 
     const twitterClickDone = () => {
@@ -365,6 +460,9 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext")
             setTwitterTaskDone("twitterDone")
+            setGoldStatusTask("goldStatus")
+            setSilverStatusTask("silverStatus")
+            setBronzeStatusTask("bronzeStatus")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 2){
             //waves
@@ -384,7 +482,10 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext")
             setTwitterTaskDone("twitterDone")
-                
+            setGoldStatusTask("goldStatus")
+            setSilverStatusTask("silverStatus")
+            setBronzeStatusTask("bronzeStatus")
+
         } else if (e.currentTarget.getAttribute('nav-id') == 3){
             //waves
             setWaveActive1("wave")
@@ -403,6 +504,9 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext")
             setTwitterTaskDone("twitterDone")
+            setGoldStatusTask("goldStatus")
+            setSilverStatusTask("silverStatus")
+            setBronzeStatusTask("bronzeStatus")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 4){
             //waves
@@ -422,6 +526,9 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext")
             setTwitterTaskDone("twitterDone")
+            setGoldStatusTask("goldStatus")
+            setSilverStatusTask("silverStatus")
+            setBronzeStatusTask("bronzeStatus")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 5){
             //waves
@@ -441,6 +548,9 @@ const Account = ({hidden, opacity}) => {
             setTwitterTask("twitter")
             setTwitterTaskNext("twitterNext")
             setTwitterTaskDone("twitterDone")
+            setGoldStatusTask("goldStatus")
+            setSilverStatusTask("silverStatus")
+            setBronzeStatusTask("bronzeStatus")
 
         }
     };
@@ -518,9 +628,9 @@ const Account = ({hidden, opacity}) => {
                             </div>
                             <div className='taskCards unselectable'>
                                 <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
-                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
-                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
-                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
                             </div>
                         </div>
 
@@ -758,9 +868,9 @@ const Account = ({hidden, opacity}) => {
                             </div>
                             <div className='taskCards unselectable'>
                                 <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
-                                <TaskCard img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
-                                <TaskCard img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
-                                <TaskCard img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
                             </div>
                         </div>
 
@@ -821,7 +931,136 @@ const Account = ({hidden, opacity}) => {
                     </div>
                 </div>
 
+                <div className={goldStatusTask} nav-content={'8'}>
+                    <div className='statusTaskContainer fadeAnim'>
+                        <div className='taskTop'>
+                            <div className="taskText">
+                                <p>+5,000</p>
+                                <img src={require('../../img/coin_big.png')} alt="peoples" width={32} height={32} draggable={false} />
+                            </div>
+                            <p>переход на уровень золото</p>
+                            <img src={require('../../img/gold.png')} alt="peoples" width={311} height={207} draggable={false} />
+                        </div>
+                        <div className="taskMiddle">
+                            <p>Пригласите 3 друзей по своей ссылке и помогите как минимум 3 друзьям достичь уровня «Серебро».</p>
+                            <div className="taskButtons">
+                                <div className="textField">
+                                    <div className="text">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.5633 4.2049H6.74346C6.59726 4.2049 6.45705 4.26297 6.35367 4.36635C6.2503 4.46973 6.19222 4.60994 6.19222 4.75614V7.51235H3.43601C3.28981 7.51235 3.1496 7.57043 3.04622 7.6738C2.94284 7.77718 2.88477 7.91739 2.88477 8.06359V16.8835C2.88477 17.0297 2.94284 17.1699 3.04622 17.2733C3.1496 17.3766 3.28981 17.4347 3.43601 17.4347H12.2559C12.4021 17.4347 12.5423 17.3766 12.6457 17.2733C12.749 17.1699 12.8071 17.0297 12.8071 16.8835V14.1273H15.5633C15.7095 14.1273 15.8497 14.0692 15.9531 13.9658C16.0565 13.8624 16.1146 13.7222 16.1146 13.576V4.75614C16.1146 4.60994 16.0565 4.46973 15.9531 4.36635C15.8497 4.26297 15.7095 4.2049 15.5633 4.2049ZM11.7046 16.3322H3.98725V8.61483H11.7046V16.3322ZM15.0121 13.0248H12.8071V8.06359C12.8071 7.91739 12.749 7.77718 12.6457 7.6738C12.5423 7.57043 12.4021 7.51235 12.2559 7.51235H7.2947V5.30738H15.0121V13.0248Z" fill="white"/>
+                                        </svg>
+                                        <p>https://join.us.referall/231234</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable'>
+                                    <p>Поделиться</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='taskBottom'>
+                            <div className="taskProgress">
+                                <p>Прогресс:</p>
+                                <div className='tasks'>
+                                    <TaskProgressCard img={require('../../img/silvermedal.png')} taskName={"Друзей уровня «Серебро»"} taskDesc={"0/3"} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                </div>
+                            </div>
+                            <div className="textField" onClick={goToTasks}>
+                                <div className="text unselectable">
+                                    <p>Вернуться ко всем заданиям</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
+                    </div>
+                </div>
 
+                <div className={silverStatusTask} nav-content={'9'}>
+                    <div className='statusTaskContainer fadeAnim'>
+                        <div className='taskTop'>
+                            <div className="taskText">
+                                <p>+2,500</p>
+                                <img src={require('../../img/coin_big.png')} alt="peoples" width={32} height={32} draggable={false} />
+                            </div>
+                            <p>переход на уровень серебро</p>
+                            <img src={require('../../img/silver.png')} alt="peoples" width={311} height={207} draggable={false} />
+                        </div>
+                        <div className="taskMiddle">
+                            <p>Пригласите 3 друзей по своей ссылке и помогите как минимум 3 друзьям достичь уровня «Бронза».</p>
+                            <div className="taskButtons">
+                                <div className="textField">
+                                    <div className="text">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.5633 4.2049H6.74346C6.59726 4.2049 6.45705 4.26297 6.35367 4.36635C6.2503 4.46973 6.19222 4.60994 6.19222 4.75614V7.51235H3.43601C3.28981 7.51235 3.1496 7.57043 3.04622 7.6738C2.94284 7.77718 2.88477 7.91739 2.88477 8.06359V16.8835C2.88477 17.0297 2.94284 17.1699 3.04622 17.2733C3.1496 17.3766 3.28981 17.4347 3.43601 17.4347H12.2559C12.4021 17.4347 12.5423 17.3766 12.6457 17.2733C12.749 17.1699 12.8071 17.0297 12.8071 16.8835V14.1273H15.5633C15.7095 14.1273 15.8497 14.0692 15.9531 13.9658C16.0565 13.8624 16.1146 13.7222 16.1146 13.576V4.75614C16.1146 4.60994 16.0565 4.46973 15.9531 4.36635C15.8497 4.26297 15.7095 4.2049 15.5633 4.2049ZM11.7046 16.3322H3.98725V8.61483H11.7046V16.3322ZM15.0121 13.0248H12.8071V8.06359C12.8071 7.91739 12.749 7.77718 12.6457 7.6738C12.5423 7.57043 12.4021 7.51235 12.2559 7.51235H7.2947V5.30738H15.0121V13.0248Z" fill="white"/>
+                                        </svg>
+                                        <p>https://join.us.referall/231234</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable'>
+                                    <p>Поделиться</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='taskBottom'>
+                            <div className="taskProgress">
+                                <p>Прогресс:</p>
+                                <div className='tasks'>
+                                    <TaskProgressCard img={require('../../img/bronzemedal.png')} taskName={"Друзей уровня «Бронза»"} taskDesc={"0/3"} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                </div>
+                            </div>
+                            <div className="textField" onClick={goToTasks}>
+                                <div className="text unselectable">
+                                    <p>Вернуться ко всем заданиям</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
+                    </div>
+                </div>
+
+                <div className={bronzeStatusTask} nav-content={'10'}>
+                    <div className='statusTaskContainer fadeAnim'>
+                        <div className='taskTop'>
+                            <div className="taskText">
+                                <p>+500</p>
+                                <img src={require('../../img/coin_big.png')} alt="peoples" width={32} height={32} draggable={false} />
+                            </div>
+                            <p>переход на уровень бронза</p>
+                            <img src={require('../../img/silver.png')} alt="peoples" width={311} height={207} draggable={false} />
+                        </div>
+                        <div className="taskMiddle">
+                            <p>Пригласите 3 друзей по своей ссылке.</p>
+                            <div className="taskButtons">
+                                <div className="textField">
+                                    <div className="text">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.5633 4.2049H6.74346C6.59726 4.2049 6.45705 4.26297 6.35367 4.36635C6.2503 4.46973 6.19222 4.60994 6.19222 4.75614V7.51235H3.43601C3.28981 7.51235 3.1496 7.57043 3.04622 7.6738C2.94284 7.77718 2.88477 7.91739 2.88477 8.06359V16.8835C2.88477 17.0297 2.94284 17.1699 3.04622 17.2733C3.1496 17.3766 3.28981 17.4347 3.43601 17.4347H12.2559C12.4021 17.4347 12.5423 17.3766 12.6457 17.2733C12.749 17.1699 12.8071 17.0297 12.8071 16.8835V14.1273H15.5633C15.7095 14.1273 15.8497 14.0692 15.9531 13.9658C16.0565 13.8624 16.1146 13.7222 16.1146 13.576V4.75614C16.1146 4.60994 16.0565 4.46973 15.9531 4.36635C15.8497 4.26297 15.7095 4.2049 15.5633 4.2049ZM11.7046 16.3322H3.98725V8.61483H11.7046V16.3322ZM15.0121 13.0248H12.8071V8.06359C12.8071 7.91739 12.749 7.77718 12.6457 7.6738C12.5423 7.57043 12.4021 7.51235 12.2559 7.51235H7.2947V5.30738H15.0121V13.0248Z" fill="white"/>
+                                        </svg>
+                                        <p>https://join.us.referall/231234</p>
+                                    </div>
+                                </div>
+                                <div className='btn unselectable'>
+                                    <p>Поделиться</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='taskBottom'>
+                            <div className="taskProgress">
+                                <p>Прогресс:</p>
+                                <div className='tasks'>
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                </div>
+                            </div>
+                            <div className="textField" onClick={goToTasks}>
+                                <div className="text unselectable">
+                                    <p>Вернуться ко всем заданиям</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
+                    </div>
+                </div>
 
                 <nav className="panel">
                     <button className={waveActive1} nav-id="1" onClick={navigateMenuHandler}>

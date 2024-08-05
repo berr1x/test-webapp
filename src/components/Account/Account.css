@@ -617,6 +617,138 @@ body {
   font-weight: 500;
   padding: 15px;
 }
+.statusTaskContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.statusTaskContainer .taskTop {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+}
+.statusTaskContainer .taskTop .taskText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+.statusTaskContainer .taskTop .taskText > p {
+  font-size: 40px;
+  font-weight: 700;
+}
+.statusTaskContainer .taskTop .taskText > img {
+  filter: drop-shadow(0 0 5px #e9c00a);
+}
+.statusTaskContainer .taskTop > img {
+  margin-top: 35px;
+}
+.statusTaskContainer .taskMiddle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 90%;
+}
+.statusTaskContainer .taskMiddle > p {
+  font-weight: 300;
+  font-size: 17px;
+  color: #b8b8b8;
+}
+.statusTaskContainer .taskMiddle .taskButtons {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 100%;
+}
+.statusTaskContainer .taskMiddle .taskButtons .textField {
+  display: flex;
+  width: 100%;
+  background-color: #1f1f1f;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #3a3a3a;
+}
+.statusTaskContainer .taskMiddle .taskButtons .textField .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+}
+.statusTaskContainer .taskMiddle .taskButtons .textField .text p {
+  color: #c0c0c0;
+  font-size: 12px;
+}
+.statusTaskContainer .taskMiddle .taskButtons .btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  background: linear-gradient(to bottom, rgba(255, 0, 6, 0.42) 0%, rgba(0, 0, 0, 0) 100%, transparent 100%);
+  border: 1px solid #790b0a;
+  width: 100%;
+  border-radius: 7px;
+}
+.statusTaskContainer .taskMiddle .taskButtons .btn p {
+  font-weight: 500;
+  padding: 15px;
+}
+.statusTaskContainer .taskBottom {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 35px;
+}
+.statusTaskContainer .taskBottom .taskProgress {
+  display: flex;
+  flex-direction: column;
+}
+.statusTaskContainer .taskBottom .taskProgress > p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.statusTaskContainer .taskBottom .taskProgress .tasks {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.statusTaskContainer .taskBottom .textField {
+  margin-top: 30px;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  background-color: #1f1f1f;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid #3a3a3a;
+}
+.statusTaskContainer .taskBottom .textField .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+}
+.statusTaskContainer .taskBottom .textField .text [contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+.statusTaskContainer .taskBottom .textField .text p {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  padding: 2px;
+  cursor: text;
+}
 .panel {
   width: 100%;
   height: 86px;

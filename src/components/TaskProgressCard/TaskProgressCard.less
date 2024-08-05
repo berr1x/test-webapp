@@ -1,0 +1,48 @@
+.taskCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    margin-top: 20px;
+    // padding: 10px;
+
+    .cardLeft {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 90%;
+    gap: 15px;
+    }
+
+    .cardRight {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #161616;
+        border-radius: 10px;
+        border: 1px solid #FF0000;
+        box-shadow: 0px 9px 8px -3px rgba(255, 0, 0, 0.2);
+
+    }
+
+    .taskName{
+        display: flex;
+        flex-direction: column;
+
+        p {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        span {
+            font-size: 13px;
+            color: #a8a8a8;
+        }
+    }
+}

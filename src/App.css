@@ -147,10 +147,16 @@
   /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+html {
+  overscroll-behavior: none;
+  touch-action: none;
+}
 body {
   background: #000;
   color: #fff;
   min-height: 100vh;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 .loading {
   position: absolute;

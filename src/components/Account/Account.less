@@ -738,6 +738,160 @@ body {
     }
 }
 
+.statusTaskContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 50px;
+
+    .taskTop {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 90%;
+
+        .taskText {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+
+            > p {
+                font-size: 40px;
+                font-weight: 700;
+            }
+
+            > img {
+                filter: drop-shadow(0 0 5px #e9c00a);
+            }
+        }
+
+        > img {
+            margin-top: 35px;
+        }
+    }
+
+    .taskMiddle {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+        width: 90%;
+
+        > p {
+            font-weight: 300;
+            font-size: 17px;
+            color: rgb(184, 184, 184);
+        }
+
+        .taskButtons {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 30px;
+            width: 100%;
+
+            .textField {
+                display: flex;
+                width: 100%;
+                background-color: #1f1f1f;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                border: 1px solid #3a3a3a;
+    
+                .text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    padding: 10px;
+    
+                    p {
+                        color: #c0c0c0;
+                        font-size: 12px;
+                    }
+                }
+            }
+    
+            .btn {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+                background: linear-gradient(to bottom, rgba(255,0,6,0.42) 0%, rgba(0,0,0,0) 100%, transparent 100%);
+                border: 1px solid #790b0a;
+                width: 100%;
+                border-radius: 7px;
+                
+    
+                p {
+                    font-weight: 500;
+                    padding: 15px;
+                }
+            }
+        }
+    }
+
+    .taskBottom {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-top: 35px;
+
+        .taskProgress {
+            display: flex;
+            flex-direction: column;
+            > p {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .tasks {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        .textField {
+            margin-top: 30px;
+            cursor: pointer;
+            display: flex;
+            width: 100%;
+            background-color: #1f1f1f;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            border: 1px solid #3a3a3a;
+
+            .text {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                padding: 10px;
+
+                [contenteditable]:focus {
+                    outline: 0px solid transparent;
+                }
+
+                p {
+                    color: #ffffff;
+                    font-size: 15px;
+                    font-weight: 500;
+                    border: none;
+                    padding: 2px;
+                    cursor: text;
+                }
+            }
+        }
+
+    }
+}
+
 .panel {
     // display: flex;
     // flex-direction: column;
