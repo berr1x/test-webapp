@@ -40,10 +40,14 @@ const Account = ({hidden, opacity}) => {
         return [value, setValue]
     }
 
+    const [tgId, setTgId] = useState("");
+
     const [coins, setCoins] = useLocalStorageArray("coins")
     const [clicks, setClicks] = useState([]);
 
+    const [balance, setBalance] = useState(0)
     const [energy, setEnergy] = useState(500);
+
     const [barWidth, setBarWidth] = useState(100);
     const [lastBarWidth, setLastBarWidth] = useState(100);
     const [lastEnergy, setLastEnergy] = useState(500);
@@ -63,7 +67,11 @@ const Account = ({hidden, opacity}) => {
 
             const data = response.data
             // console.log(data)
-            setUserImage(data[0].photo_url)
+            setUserImage(data.photo_url)
+            setBalance(data.balance)
+            setEnergy(data.energy)
+            setBarWidth(data.bar_width)
+            setTgId(data.telegramId)
         } catch (err) {
             console.log(err)
         }
@@ -109,79 +117,74 @@ const Account = ({hidden, opacity}) => {
         }
     }, [])
 
+    // useEffect(() => {
+    //     let timer;
+    
+    //     if (energy < 500) {
+    //       // If energy is less than 300, set a timeout for 3 seconds
+    //         timer = setTimeout(() => {
+    //         // If energy hasn't changed in the last 3 seconds, increase it by 1
+    //             if (energy === lastEnergy) {
+    //                 setEnergy(prevEnergy => Math.min(prevEnergy + 1, 500));
+    //             }
+    //         }, 1500);
+    //     }
+    
+    //     // Cleanup the timer on component unmount or when energy changes
+    //     return () => clearTimeout(timer);
+    
+    // }, [energy, lastEnergy]);
+
+    // useEffect(() => {
+    //     // Update lastEnergy whenever energy changes
+    //     setLastEnergy(energy);
+    // }, [energy]);
+    
+
+    // useEffect(() => {
+    //     let barWidthTimer;
+    
+    //     if (barWidth < 100) {
+    //       // If barWidth is less than 300, set a timeout for 3 seconds
+    //         barWidthTimer = setTimeout(() => {
+    //         // If barWidth hasn't changed in the last 3 seconds, increase it by 1
+    //         if (barWidth === lastBarWidth) {
+    //             setBarWidth(prevBarWidth => Math.min(prevBarWidth + 0.2, 100));
+    //         }
+    //     }, 1500);
+    //     }
+    
+    //     // Cleanup the timer on component unmount or when barWidth changes
+    //     return () => clearTimeout(barWidthTimer);
+    
+    //   }, [barWidth, lastBarWidth]); // This effect depends on barWidth and lastBarWidth
+    
+    //     useEffect(() => {
+    //         // Update lastBarWidth whenever barWidth changes
+    //         setLastBarWidth(barWidth);
+    //     }, [barWidth]);
+
     useEffect(() => {
-        let timer;
+        let recoverInterval;
     
         if (energy < 500) {
-          // If energy is less than 300, set a timeout for 3 seconds
-            timer = setTimeout(() => {
-            // If energy hasn't changed in the last 3 seconds, increase it by 1
-                if (energy === lastEnergy) {
-                    setEnergy(prevEnergy => Math.min(prevEnergy + 1, 500));
-                }
-            }, 1500);
+            recoverInterval = setInterval(() => {
+            const newBarWidth = barWidth + (1/5);
+            axios.post('https://polemos.na4u.ru/energyRecover', { telegramId: tgId, barWidth: newBarWidth })
+                .then(res => {
+                    setEnergy(res.data.energy);
+                    setBarWidth(res.data.barWidth);
+                })
+                .catch(err => console.error(err));
+            }, 1000);
         }
     
-        // Cleanup the timer on component unmount or when energy changes
-        return () => clearTimeout(timer);
-    
-    }, [energy, lastEnergy]);
-
-    useEffect(() => {
-        // Update lastEnergy whenever energy changes
-        setLastEnergy(energy);
-    }, [energy]);
-    
-
-    useEffect(() => {
-        let barWidthTimer;
-    
-        if (barWidth < 100) {
-          // If barWidth is less than 300, set a timeout for 3 seconds
-            barWidthTimer = setTimeout(() => {
-            // If barWidth hasn't changed in the last 3 seconds, increase it by 1
-            if (barWidth === lastBarWidth) {
-                setBarWidth(prevBarWidth => Math.min(prevBarWidth + 0.2, 100));
-            }
-        }, 1500);
-        }
-    
-        // Cleanup the timer on component unmount or when barWidth changes
-        return () => clearTimeout(barWidthTimer);
-    
-      }, [barWidth, lastBarWidth]); // This effect depends on barWidth and lastBarWidth
-    
-        useEffect(() => {
-            // Update lastBarWidth whenever barWidth changes
-            setLastBarWidth(barWidth);
-        }, [barWidth]);
-
-    useEffect(() => {
-        if (localStorage.getItem("coins") == "[]")
-        {
-            setCoins(0)
-        }
-    }, [])
-
-    const clickedText = (e) => {
-
-        if (energy <= 1)
-        {
-            return
-        }
-
-        const newClick = { id: Date.now(), x: e.clientX, y: e.clientY };
-        setClicks((prevClicks) => [...prevClicks, newClick]);
-    
-        // Remove click after animation
-        setTimeout(() => {
-            setClicks((prevClicks) => prevClicks.filter((click) => click.id !== newClick.id));
-        }, 1000);
-    };
+        return () => clearInterval(recoverInterval);
+    }, [energy, tgId]);
 
     const clicked = (e) => {
 
-        if (energy <= 1)
+        if (energy < 1)
         {
             return
         }
@@ -199,11 +202,19 @@ const Account = ({hidden, opacity}) => {
         setSizeW(275)
         setSizeH(275)
         
-        let coins = Number(localStorage.getItem("coins"))+1
-        setCoins(coins)
+        // let coins = Number(localStorage.getItem("coins"))+1
+        // setCoins(coins)
 
-        setEnergy(energy-1)
-        setBarWidth(barWidth-0.2)
+        // setEnergy(energy-1)
+
+        const newBarWidth = barWidth - 0.2;
+        axios.post('https://polemos.na4u.ru/click', { telegramId: tgId, barWidth: newBarWidth })
+        .then(res => {
+            setBalance(res.data.balance);
+            setEnergy(res.data.energy);
+            setBarWidth(res.data.barWidth);
+        })
+        .catch(err => console.error(err));
 
         setTimeout(() => {
             setSkewX(0)
@@ -586,7 +597,7 @@ const Account = ({hidden, opacity}) => {
                             <p>Кол-во BOOSTS</p>
                             <div className="info">
                                 <img src={require('../../img/coin_small.png')} alt="dog" width={34} height={34} draggable={false} />
-                                <p>10</p>
+                                <p>{balance}</p>
                                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM12.9 7C12.9 6.50294 12.4971 6.1 12 6.1C11.5029 6.1 11.1 6.50294 11.1 7V11.1H7C6.50294 11.1 6.1 11.5029 6.1 12C6.1 12.4971 6.50294 12.9 7 12.9H11.1V17C11.1 17.4971 11.5029 17.9 12 17.9C12.4971 17.9 12.9 17.4971 12.9 17V12.9H17C17.4971 12.9 17.9 12.4971 17.9 12C17.9 11.5029 17.4971 11.1 17 11.1H12.9V7Z" fill="#B51310"/>
                                 </svg>
@@ -730,7 +741,7 @@ const Account = ({hidden, opacity}) => {
                             <div className="dogInfo">
                                 <div className="dogCoin">
                                     <img src={require('../../img/coin.png')} alt="dog" width={42} height={42} draggable={false} />
-                                    <p>{coins}</p>
+                                    <p>{balance}</p>
                                 </div>
                                 <p className='status'>Bronze <span><AiOutlineRight /></span></p>
                             </div>
