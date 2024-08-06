@@ -103,8 +103,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            getUserInfo(tg.initDataUnsafe.user.id)
-            // getUserInfo("5961301232")
+            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo("5961301232")
             
         }
     }, [])
@@ -237,6 +237,8 @@ const Account = ({hidden, opacity}) => {
     const [tapActive, setTapActive] = useState("tap");
     const [ratingActive, setRatingActive] = useState("rating");
     const [tasksActive, setTasksActive] = useState("tasks");
+
+    const [notification, setNotification] = useState("none")
 
     // ---- TASKS ---- //
 
@@ -560,8 +562,28 @@ const Account = ({hidden, opacity}) => {
             {hidden ? (
             <div class="container">
                 <div className={homeActive} nav-content={"1"}>
+                    <div className="notificationContainer" style={{display: notification}}>
+                        <div className='notificationBlank fadeAnim'>
+                            <div className="notificationTop">
+                                <img src={require('../../img/about.png')} alt="dog" width={279} height={166} draggable={false} />
+                                <div className='notificationText'>
+                                    <p>Розыгрыш токенов проекта Canza</p>
+                                </div>
+                            </div>
+                            <div className="notificationBottom">
+                                <div className="notificationText">
+                                    <p>Зарабатывай BOOSTS и получай токены проекта.</p>
+                                    <span>Чем больше BOOSTS Вы зарабаотаете, тем больше шанс выиграть до 1000$ в токенах проекта</span>
+                                </div>
+                                <div className='btn unselectable' onClick={() => {
+                                    setNotification("none")
+                                }}>
+                                    <p>Понятно</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="homeAccount fadeAnim">
-
                         <div className="score unselectable">
                             <p>Кол-во BOOSTS</p>
                             <div className="info">
@@ -635,7 +657,9 @@ const Account = ({hidden, opacity}) => {
                         </div>
 
                         <div className="slide">
-                            <div className='card'>
+                            <div className='card' onClick={() => {
+                                setNotification("flex")
+                            }}>
                                 <img id='background' src={require('../../img/card_back.png')} alt="dog" width={252} height={266} draggable={false} />
                                 <img id='polemos' src={require('../../img/polemos.png')} alt="dog" width={75} height={75} draggable={false} />
                                 <div className="cardInfo">
