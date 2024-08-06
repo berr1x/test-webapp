@@ -564,14 +564,12 @@ const Account = ({hidden, opacity}) => {
                 <div className={homeActive} nav-content={"1"}>
                     <div className="notificationContainer" style={{display: notification}}>
                         <div className='notificationBlank fadeAnim'>
-                            <div className="notificationTop">
-                                <img src={require('../../img/about.png')} alt="dog" width={279} height={166} draggable={false} />
-                                <div className='notificationText'>
+                            <div className="raffle">
+                                <div className="image">
+                                    <img src={require('../../img/about.png')} alt="dog" draggable={false} />
                                     <p>Розыгрыш токенов проекта Canza</p>
                                 </div>
-                            </div>
-                            <div className="notificationBottom">
-                                <div className="notificationText">
+                                <div className='notificationText'>
                                     <p>Зарабатывай BOOSTS и получай токены проекта.</p>
                                     <span>Чем больше BOOSTS Вы зарабаотаете, тем больше шанс выиграть до 1000$ в токенах проекта</span>
                                 </div>
