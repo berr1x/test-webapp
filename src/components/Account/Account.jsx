@@ -4,6 +4,7 @@ import Coin from '../Coin/Coin';
 import 'animate.css'
 import axios, { AxiosError } from 'axios';
 import TaskCard from '../TaskCard/TaskCard';
+import TestTaskCard from '../TestTaskCard/TestTaskCard';
 import LeaderBoardCard from '../LeaderBoardCard/LeaderBoardCard'
 import TaskProgressCard from '../TaskProgressCard/TaskProgressCard';
 
@@ -58,6 +59,7 @@ const Account = ({hidden, opacity}) => {
 
     const [leaderBoardInfo, setLeaderBoardInfo] = useState([]);
     const [membersInfo, setMembersInfo] = useState([]);
+    const [allTasks, setAllTasks] = useState([]);
 
     const getUserInfo = async (id) => {
         try {
@@ -103,7 +105,35 @@ const Account = ({hidden, opacity}) => {
             .catch(error => {
                 console.error('Error fetching data', error);
         });
+
+        axios.post('https://polemos.na4u.ru/getAllTasks')
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setAllTasks(response.data);
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
     }, [])
+
+    const tasksRefresh = () => {
+        axios.post('https://polemos.na4u.ru/getAllTasks')
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setAllTasks(response.data);
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    };
 
     useEffect(() => {
         if (tg.initDataUnsafe)
@@ -111,8 +141,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            getUserInfo(tg.initDataUnsafe.user.id)
-            // getUserInfo("5961301232")
+            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo("5961301232")
             
         }
     }, [])
@@ -242,6 +272,7 @@ const Account = ({hidden, opacity}) => {
     const [waveActive5, setWaveActive5] = useState("wave");
 
     const [homeActive, setHomeActive] = useState("home active");
+    const [testEnv, setTestEnv] = useState("testEnv");
     const [styleHome, setStyleHome] = useState();
 
     const [friendsActive, setFriendsActive] = useState("friends");
@@ -452,6 +483,27 @@ const Account = ({hidden, opacity}) => {
         }
     }, [])
 
+    const testEnvironment = () => {
+        setWaveActive1("wave")
+        setWaveActive2("wave")
+        setWaveActive3("wave")
+        setWaveActiveShadow("icon")
+        setWaveActive4("wave")
+        setWaveActive5("wave")
+
+        setHomeActive("home")
+        setFriendsActive("friends")
+        setTapActive("tap")
+        setRatingActive("rating")
+        setTasksActive("tasks")
+        setTwitterTask("twitter")
+        setTwitterTaskNext("twitterNext")
+        setTwitterTaskDone("twitterDone")
+        setGoldStatusTask("goldStatus")
+        setSilverStatusTask("silverStatus")
+        setBronzeStatusTask("bronzeStatus")
+        setTestEnv("testEnv active")
+    };
 
     const navigateMenuHandler = (e) => {
         if (e.currentTarget.getAttribute('nav-id') == 1){
@@ -476,6 +528,7 @@ const Account = ({hidden, opacity}) => {
             setGoldStatusTask("goldStatus")
             setSilverStatusTask("silverStatus")
             setBronzeStatusTask("bronzeStatus")
+            setTestEnv("testEnv")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 2){
             //waves
@@ -498,6 +551,7 @@ const Account = ({hidden, opacity}) => {
             setGoldStatusTask("goldStatus")
             setSilverStatusTask("silverStatus")
             setBronzeStatusTask("bronzeStatus")
+            setTestEnv("testEnv")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 3){
             //waves
@@ -520,6 +574,7 @@ const Account = ({hidden, opacity}) => {
             setGoldStatusTask("goldStatus")
             setSilverStatusTask("silverStatus")
             setBronzeStatusTask("bronzeStatus")
+            setTestEnv("testEnv")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 4){
             //waves
@@ -542,6 +597,7 @@ const Account = ({hidden, opacity}) => {
             setGoldStatusTask("goldStatus")
             setSilverStatusTask("silverStatus")
             setBronzeStatusTask("bronzeStatus")
+            setTestEnv("testEnv")
 
         } else if (e.currentTarget.getAttribute('nav-id') == 5){
             //waves
@@ -564,14 +620,80 @@ const Account = ({hidden, opacity}) => {
             setGoldStatusTask("goldStatus")
             setSilverStatusTask("silverStatus")
             setBronzeStatusTask("bronzeStatus")
+            setTestEnv("testEnv")
 
         }
+    };
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [customId, setCustomId] = useState('');
+    const [clickEvent, setClickEvent] = useState('');
+    const [image, setImage] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('caption', title);
+        formData.append('text', description);
+        formData.append('customTaskId', customId);
+        formData.append('clickEvent', clickEvent);
+        formData.append('image', image);
+    
+        try {
+            await axios.post('https://polemos.na4u.ru/taskCreate', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            // alert('Задание успешно создано');
+            tg.showAlert("Задание успешно создано")
+        } catch (error) {
+            console.error('Ошибка при создании задания', error);
+            alert('Ошибка при создании задания');
+        }
+    };
+
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
     };
 
     return (
         <div>
             {hidden ? (
             <div class="container">
+                <div className={testEnv} nav-content={"-1"}>
+                    <div className="testEnvContainer fadeAnim">
+                        <div className='testEnvInfo'>
+                            <p>Тестовое окружение</p>
+                            <span>admin - backend - user</span>
+                        </div>
+                        <div className="adminEnv">
+                            <p>Admin Env</p>
+                            <div className="formEnv">
+                                <p onClick={tasksRefresh}>Создать новое задание</p>
+                                <form onSubmit={handleSubmit}>
+                                    <input type="text" placeholder='Название задания' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                                    <textarea placeholder='Описание задания (кратко)' value={description} onChange={(e) => setDescription(e.target.value)} required />
+                                    <input type="text" placeholder='Кастомный ID Задания' value={customId} onChange={(e) => setCustomId(e.target.value)} required />
+                                    <input type="text" placeholder='Событие клика (ссылка)' value={clickEvent} onChange={(e) => setClickEvent(e.target.value)} required />
+                                    <input type="file" onChange={handleImageChange} required />
+                                    <button type="submit">Создать задание</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div className="userEnv">
+                            <p>User Env</p>
+                            {allTasks.map((task) => (
+                                <TestTaskCard key={task.customTaskId} taskName={task.caption} taskDesc={task.text} img={task.img} link={task.clickEvent}/>
+                            ))}
+                        </div>
+                    </div>
+                    <div style={{paddingTop: "150px"}}>ㅤㅤㅤㅤㅤㅤㅤㅤ</div>
+                </div>
+
                 <div className={homeActive} nav-content={"1"}>
                     <div className="notificationContainer" style={{display: notification}}>
                         <div className='notificationBlank fadeAnim'>
@@ -595,7 +717,7 @@ const Account = ({hidden, opacity}) => {
                     <div className="homeAccount fadeAnim">
                         <div className="score unselectable">
                             <p>Кол-во BOOSTS</p>
-                            <div className="info">
+                            <div className="info" onClick={testEnvironment}>
                                 <img src={require('../../img/coin_small.png')} alt="dog" width={34} height={34} draggable={false} />
                                 <p>{balance}</p>
                                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -658,6 +780,41 @@ const Account = ({hidden, opacity}) => {
                                 <p>до 5 000 BOOSTS за выполненные задания</p>
                             </div>
                             <div className='taskCards unselectable'>
+                                {/* {allTasks.map((item, index) => (
+                                    <TaskCard
+                                        key={index}
+                                        img={item.img}
+                                        taskName={item.caption}
+                                        taskDesc={item.text}
+                                        onClick={() => {
+                                            if (item.clickEvent == "twitterClick") {
+                                                return twitterClick
+                                            } else if (item.clickEvent == "goldStatusClick") {
+                                                return goldStatusClick
+                                            } else if (item.clickEvent == "silverStatusClick") {
+                                                return silverStatusClick
+                                            } else if (item.clickEvent == "bronzeStatusClick") {
+                                                return bronzeStatusClick
+                                            } else {
+                                                return
+                                            }
+                                        }}
+                                        status={() => {
+                                            if (item.clickEvent == "twitterClick") {
+                                                return twitterTaskStatus
+                                            } else if (item.clickEvent == "goldStatusClick") {
+                                                return "none"
+                                            } else if (item.clickEvent == "silverStatusClick") {
+                                                return "none"
+                                            } else if (item.clickEvent == "bronzeStatusClick") {
+                                                return "none"
+                                            } else {
+                                                return
+                                            }
+                                        }}
+                                    />
+                                ))} */}
+
                                 <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
                                 <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
                                 <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />

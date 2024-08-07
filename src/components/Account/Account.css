@@ -137,6 +137,65 @@ body {
     max-height: 100%;
   }
 }
+.testEnvContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.testEnvContainer .testEnvInfo {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.testEnvContainer .testEnvInfo > p {
+  font-size: 14px;
+  color: #9b9b9b;
+}
+.testEnvContainer .testEnvInfo > span {
+  font-size: 12px;
+  color: gray;
+}
+.testEnvContainer .adminEnv {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.testEnvContainer .adminEnv > p {
+  font-size: 15px;
+  color: gray;
+}
+.testEnvContainer .adminEnv .formEnv {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.testEnvContainer .adminEnv .formEnv > form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.testEnvContainer .adminEnv .formEnv > form > input {
+  height: 40px;
+  outline: 0px solid transparent;
+}
+.testEnvContainer .adminEnv .formEnv > form > button {
+  height: 40px;
+}
+.testEnvContainer .adminEnv .formEnv > form > textarea {
+  height: 40px;
+  outline: 0px solid transparent;
+}
+.testEnvContainer .userEnv {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
 .notificationContainer {
   display: flex;
   z-index: 2;
