@@ -1,8 +1,10 @@
+const tg = window.Telegram.WebApp;
 
 const TestTaskCard = ({img, taskName, taskDesc, link}) => {
 
     const goToTask = () => {
-        window.location.href = link;
+        // window.location.href = link;
+        tg.openLink(link)
     };
 
     return (
