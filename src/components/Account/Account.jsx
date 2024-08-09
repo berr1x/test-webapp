@@ -66,6 +66,92 @@ const Account = ({hidden, opacity}) => {
     const [leaderBoardInfo, setLeaderBoardInfo] = useState([]);
     const [membersInfo, setMembersInfo] = useState([]);
     const [allTasks, setAllTasks] = useState([]);
+    const [currentUserStatus, setCurrentUserStatus] = useState("Нет статуса")
+    const [currentUserPlace, setCurrentUserPlace] = useState("")
+    
+    // ref count
+    const [statusLessRefs, setStatusLessRefs] = useState("")
+    const [bronzeRefs, setBronzeRefs] = useState("")
+    const [silverRefs, setSilverRefs] = useState("")
+    const [goldRefs, setGoldRefs] = useState("")
+    ////
+
+    const getCompletedTasks = async (all, bronze, silver, gold) => {
+        if (all >= 3) {
+            setBronzeStatus("success")
+        }
+        if (bronze >= 3) {
+            setSilverStatus("success")
+        }
+        if (silver >= 3) {
+            setGoldStatus("success")
+        }
+    }
+
+    const getCountOfRefs = async (id) => {
+        await axios.post('https://polemos.na4u.ru/getAllReferals', {telegramId: id})
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setStatusLessRefs(response.data.referrals.statusless)
+                    setBronzeRefs(response.data.referrals.bronze)
+                    setSilverRefs(response.data.referrals.silver)
+                    setGoldRefs(response.data.referrals.gold)
+
+                    const allRefs = response.data.referrals.statusless + response.data.referrals.bronze + response.data.referrals.silver + response.data.referrals.gold;
+                    getCompletedTasks(allRefs, response.data.referrals.bronze, response.data.referrals.silver, response.data.referrals.gold)
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    };
+
+    const openCurrentStatusTask = () => {
+
+        if (currentUserStatus == "У вас нет статуса") {
+            bronzeStatusClick()
+        } else if (currentUserStatus == "Bronze") {
+            silverStatusClick()
+        } else if (currentUserStatus == "Silver") {
+            goldStatusClick()
+        } else if (currentUserStatus == "Gold") {
+            tg.showAlert("У вас максимальный статус")
+        }
+
+    };
+
+    const getUserStatus = async (id) => {
+        await axios.post('https://polemos.na4u.ru/getUserStatus', {telegramId: id})
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setCurrentUserStatus(response.data.user.status)
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    };
+
+    const getUserPlace = async (id) => {
+        await axios.post('https://polemos.na4u.ru/getUserPlace', {telegramId: id})
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setCurrentUserPlace(response.data.data.place)
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    };
 
     const getUsersCount = async () => {
         await axios.post('https://polemos.na4u.ru/getUsersCount')
@@ -118,6 +204,10 @@ const Account = ({hidden, opacity}) => {
             setUserReferalLink(`${url}?start=${data.telegramId}`)
             getReferalLink(data.telegramId)
             getUsersCount()
+            getUserPlace(data.telegramId)
+            getUserStatus(data.telegramId)
+            getCountOfRefs(data.telegramId)
+            getCompletedTasks()
         } catch (err) {
             console.log(err)
         }
@@ -194,53 +284,6 @@ const Account = ({hidden, opacity}) => {
         
     }, [])
 
-    // useEffect(() => {
-    //     let timer;
-    
-    //     if (energy < 500) {
-    //       // If energy is less than 300, set a timeout for 3 seconds
-    //         timer = setTimeout(() => {
-    //         // If energy hasn't changed in the last 3 seconds, increase it by 1
-    //             if (energy === lastEnergy) {
-    //                 setEnergy(prevEnergy => Math.min(prevEnergy + 1, 500));
-    //             }
-    //         }, 1500);
-    //     }
-    
-    //     // Cleanup the timer on component unmount or when energy changes
-    //     return () => clearTimeout(timer);
-    
-    // }, [energy, lastEnergy]);
-
-    // useEffect(() => {
-    //     // Update lastEnergy whenever energy changes
-    //     setLastEnergy(energy);
-    // }, [energy]);
-    
-
-    // useEffect(() => {
-    //     let barWidthTimer;
-    
-    //     if (barWidth < 100) {
-    //       // If barWidth is less than 300, set a timeout for 3 seconds
-    //         barWidthTimer = setTimeout(() => {
-    //         // If barWidth hasn't changed in the last 3 seconds, increase it by 1
-    //         if (barWidth === lastBarWidth) {
-    //             setBarWidth(prevBarWidth => Math.min(prevBarWidth + 0.2, 100));
-    //         }
-    //     }, 1500);
-    //     }
-    
-    //     // Cleanup the timer on component unmount or when barWidth changes
-    //     return () => clearTimeout(barWidthTimer);
-    
-    //   }, [barWidth, lastBarWidth]); // This effect depends on barWidth and lastBarWidth
-    
-    //     useEffect(() => {
-    //         // Update lastBarWidth whenever barWidth changes
-    //         setLastBarWidth(barWidth);
-    //     }, [barWidth]);
-
     useEffect(() => {
         let recoverInterval;
     
@@ -301,6 +344,7 @@ const Account = ({hidden, opacity}) => {
         }, 50)
     };
 
+
     const opacityChange = useSpring({
         from: {
             opacity: 0,
@@ -342,6 +386,10 @@ const Account = ({hidden, opacity}) => {
     const [goldStatusTask, setGoldStatusTask] = useState("goldStatus")
     const [silverStatusTask, setSilverStatusTask] = useState("silverStatus")
     const [bronzeStatusTask, setBronzeStatusTask] = useState("bronzeStatus")
+
+    const [goldStatus, setGoldStatus] = useState("none");
+    const [silverStatus, setSilverStatus] = useState("none");
+    const [bronzeStatus, setBronzeStatus] = useState("none");
     ///////////////////////////
 
     const twitterClickFirst = () => {
@@ -798,7 +846,7 @@ const Account = ({hidden, opacity}) => {
                             </div>
                             <div className="place">
                                 <p>Place</p>
-                                <span>#1501</span>
+                                <span>#{currentUserPlace}</span>
                             </div>
                         </div>
 
@@ -863,9 +911,9 @@ const Account = ({hidden, opacity}) => {
                                 ))} */}
 
                                 <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
-                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
-                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
-                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={goldStatus} />
+                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={silverStatus} />
+                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={bronzeStatus} />
                             </div>
                         </div>
 
@@ -947,7 +995,7 @@ const Account = ({hidden, opacity}) => {
                                     <img src={require('../../img/coin.png')} alt="dog" width={42} height={42} draggable={false} />
                                     <p>{balance}</p>
                                 </div>
-                                <p className='status'>Bronze <span><AiOutlineRight /></span></p>
+                                <p className='status' onClick={openCurrentStatusTask}>{currentUserStatus} <span><AiOutlineRight /></span></p>
                             </div>
 
                             <div className='coin'>
@@ -994,12 +1042,12 @@ const Account = ({hidden, opacity}) => {
                                         {userData == null ? (
                                             <>
                                                 <p>Твой ID: 5035389002</p>
-                                                <span>0 rows found</span>
+                                                <span>{usersCount} rows found</span>
                                             </>
                                         ) : (
                                             <>
                                                 <p>Твой ID: {userData.id}</p>
-                                                <span>0 rows found</span>
+                                                <span>{usersCount} rows found</span>
                                             </>
                                         )}
                                     </div>
@@ -1075,7 +1123,7 @@ const Account = ({hidden, opacity}) => {
                             </div>
                             <div className="place">
                                 <p>Place</p>
-                                <span>#1501</span>
+                                <span>#{currentUserPlace}</span>
                             </div>
                         </div>
 
@@ -1105,9 +1153,9 @@ const Account = ({hidden, opacity}) => {
                             </div>
                             <div className='taskCards unselectable'>
                                 <TaskCard onClick={twitterClick} img={require('../../img/x.png')} taskName={"Подписаться на твиттер"} taskDesc={"Получите +200 BOOSTS"} status={twitterTaskStatus} />
-                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={"none"} />
-                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={"none"} />
-                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={"none"} />
+                                <TaskCard onClick={goldStatusClick} img={require('../../img/goldmedal.png')} taskName={"Достигните уровня “Золото”"} taskDesc={"Получите +5000 BOOSTS"} status={goldStatus} />
+                                <TaskCard onClick={silverStatusClick} img={require('../../img/silvermedal.png')} taskName={"Достигните уровня “Серебро”"} taskDesc={"Получите +2500 BOOSTS"} status={silverStatus} />
+                                <TaskCard onClick={bronzeStatusClick} img={require('../../img/bronzemedal.png')} taskName={"Достигните уровня “Бронза”"} taskDesc={"Получите +500 BOOSTS"} status={bronzeStatus} />
                             </div>
                         </div>
 
@@ -1198,8 +1246,8 @@ const Account = ({hidden, opacity}) => {
                             <div className="taskProgress">
                                 <p>Прогресс:</p>
                                 <div className='tasks'>
-                                    <TaskProgressCard img={require('../../img/silvermedal.png')} taskName={"Друзей уровня «Серебро»"} taskDesc={"0/3"} status={"none"} />
-                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/silvermedal.png')} taskName={"Друзей уровня «Серебро»"} taskDesc={`${silverRefs}/3`} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={userRefsCount} status={"none"} />
                                 </div>
                             </div>
                             <div className="textField" onClick={goToTasks}>
@@ -1242,8 +1290,8 @@ const Account = ({hidden, opacity}) => {
                             <div className="taskProgress">
                                 <p>Прогресс:</p>
                                 <div className='tasks'>
-                                    <TaskProgressCard img={require('../../img/bronzemedal.png')} taskName={"Друзей уровня «Бронза»"} taskDesc={"0/3"} status={"none"} />
-                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/bronzemedal.png')} taskName={"Друзей уровня «Бронза»"} taskDesc={`${bronzeRefs}/3`} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={userRefsCount} status={"none"} />
                                 </div>
                             </div>
                             <div className="textField" onClick={goToTasks}>
@@ -1286,7 +1334,7 @@ const Account = ({hidden, opacity}) => {
                             <div className="taskProgress">
                                 <p>Прогресс:</p>
                                 <div className='tasks'>
-                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={"0"} status={"none"} />
+                                    <TaskProgressCard img={require('../../img/friends.png')} taskName={"Всего приглашенных"} taskDesc={userRefsCount} status={"none"} />
                                 </div>
                             </div>
                             <div className="textField" onClick={goToTasks}>
