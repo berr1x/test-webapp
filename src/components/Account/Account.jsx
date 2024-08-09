@@ -61,10 +61,26 @@ const Account = ({hidden, opacity}) => {
     const [userData, setUserData] = useState(null);
     const [userImage, setUserImage] = useState("none");
     const [userRefsCount, setUserRefsCount] = useState("0");
+    const [usersCount, setUsersCount] = useState("0");
 
     const [leaderBoardInfo, setLeaderBoardInfo] = useState([]);
     const [membersInfo, setMembersInfo] = useState([]);
     const [allTasks, setAllTasks] = useState([]);
+
+    const getUsersCount = async () => {
+        await axios.post('https://polemos.na4u.ru/getUsersCount')
+            .then(response => {
+                // Проверка на успешное получение данных
+                if (response.status === 200) {
+                    setUsersCount(response.data.refs.count)
+                } else {
+                    console.error('Error fetching data', response);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    }
 
     const getReferalLink = async (id) => {
         await axios.post('https://polemos.na4u.ru/getUserRefs', {referer: id})
@@ -101,6 +117,7 @@ const Account = ({hidden, opacity}) => {
             setTgId(data.telegramId)
             setUserReferalLink(`${url}?start=${data.telegramId}`)
             getReferalLink(data.telegramId)
+            getUsersCount()
         } catch (err) {
             console.log(err)
         }
@@ -886,14 +903,14 @@ const Account = ({hidden, opacity}) => {
                                 <p>Участники розыгрыша от Polemos</p>
                                 <div className='statistic'>
                                     <img src={require('../../img/chel.png')} alt="dog" width={42} height={52} draggable={false} />
-                                    <p>8398</p>
+                                    <p>{usersCount}</p>
                                 </div>
                             </div>
                             <div className='infoCard'>
                                 <p>Общее охваченное число участников</p>
                                 <div className='statistic'>
                                     <img src={require('../../img/chel.png')} alt="dog" width={42} height={52} draggable={false} />
-                                    <p>8398</p>
+                                    <p>{usersCount}</p>
                                 </div>
                             </div>
                         </div>
