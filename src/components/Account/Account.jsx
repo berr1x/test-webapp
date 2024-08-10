@@ -207,6 +207,10 @@ const Account = ({hidden, opacity}) => {
         });
     }
 
+    const twitterLinkGo = async () => {
+        tg.openLink("https://x.com/Polemos_io")
+    };
+
     const getReferalLink = async (id) => {
         await axios.post('https://polemos.na4u.ru/getUserRefs', {referer: id})
             .then(response => {
@@ -286,8 +290,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            // getUserInfo(tg.initDataUnsafe.user.id)
-            getUserInfo("5961301232")
+            getUserInfo(tg.initDataUnsafe.user.id)
+            // getUserInfo("5961301232")
             
         }
     }, [])
@@ -572,7 +576,14 @@ const Account = ({hidden, opacity}) => {
         setBronzeStatusTask("bronzeStatus active")
     };
 
+    const [getUserTwitter, setUserTwitter] = useState("https://twitter.com/ВАШ_АККАУНТ");
+
+    const handleTwitterEvent = (e) => {
+        setUserTwitter(e.currentTarget.textContent)
+    };
+
     const twitterClickDone = () => {
+        console.log(getUserTwitter)
         setTwitterTastStatus("wait")
         tg.showAlert("Задание отправлено на проверку", () => {
             setWaveActive1("wave active")
@@ -1226,7 +1237,7 @@ const Account = ({hidden, opacity}) => {
                                 <p>2. Пришлите ссылку на Twitter</p>
                             </div>
                             <div className='taskButtons'>
-                                <div className="textField">
+                                <div className="textField" onClick={twitterLinkGo}>
                                     <div className="text unselectable">
                                         <p>Subscribe on Twitter</p>
                                     </div>
@@ -1252,7 +1263,7 @@ const Account = ({hidden, opacity}) => {
                             <div className='taskButtons'>
                                 <div className="textField">
                                     <div className="text unselectable">
-                                        <p style={{fontSize: "14px", fontWeight: "400"}} contentEditable>https://twitter.com/ВАШ_АККАУНТ</p>
+                                        <p style={{fontSize: "14px", fontWeight: "400"}} onInput={handleTwitterEvent} contentEditable>https://twitter.com/ВАШ_АККАУНТ</p>
                                     </div>
                                 </div>
                                 <div className='btn unselectable' onClick={twitterClickDone}>
