@@ -76,15 +76,54 @@ const Account = ({hidden, opacity}) => {
     const [goldRefs, setGoldRefs] = useState("")
     ////
 
-    const getCompletedTasks = async (all, bronze, silver, gold) => {
+    const getCompletedTasks = async (all, bronze, silver, gold, id) => {
         if (all >= 3) {
             setBronzeStatus("success")
+            await axios.post('https://polemos.na4u.ru/taskUpdate', {telegramId: id, type: "bronze"})
+                .then(response => {
+                    // Проверка на успешное получение данных
+                    if (response.status === 200) {
+                        console.log("Статус запроса: ", response.data.status)
+                        userBalanceUpdate(id)
+                    } else {
+                        console.error('Error fetching data', response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data', error);
+                });
         }
         if (bronze >= 3) {
             setSilverStatus("success")
+            await axios.post('https://polemos.na4u.ru/taskUpdate', {telegramId: id, type: "silver"})
+                .then(response => {
+                    // Проверка на успешное получение данных
+                    if (response.status === 200) {
+                        console.log("Статус запроса: ", response.data.status)
+                        userBalanceUpdate(id)
+                    } else {
+                        console.error('Error fetching data', response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data', error);
+                });
         }
         if (silver >= 3) {
             setGoldStatus("success")
+            await axios.post('https://polemos.na4u.ru/taskUpdate', {telegramId: id, type: "gold"})
+                .then(response => {
+                    // Проверка на успешное получение данных
+                    if (response.status === 200) {
+                        console.log("Статус запроса: ", response.data.status)
+                        userBalanceUpdate(id)
+                    } else {
+                        console.error('Error fetching data', response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data', error);
+                });
         }
     }
 
@@ -99,7 +138,7 @@ const Account = ({hidden, opacity}) => {
                     setGoldRefs(response.data.referrals.gold)
 
                     const allRefs = response.data.referrals.statusless + response.data.referrals.bronze + response.data.referrals.silver + response.data.referrals.gold;
-                    getCompletedTasks(allRefs, response.data.referrals.bronze, response.data.referrals.silver, response.data.referrals.gold)
+                    getCompletedTasks(allRefs, response.data.referrals.bronze, response.data.referrals.silver, response.data.referrals.gold, id)
                 } else {
                     console.error('Error fetching data', response);
                 }
@@ -188,6 +227,19 @@ const Account = ({hidden, opacity}) => {
         tg.showAlert("Ссылка скопирована")
     };
 
+    const userBalanceUpdate = async (id) => {
+        try {
+            const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
+                telegramId: id
+            });
+
+            const data = response.data
+            setBalance(data.balance)
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
     const getUserInfo = async (id) => {
         try {
             const response = await axios.post('https://polemos.na4u.ru/getInfoByTelegramId', {
@@ -207,7 +259,6 @@ const Account = ({hidden, opacity}) => {
             getUserPlace(data.telegramId)
             getUserStatus(data.telegramId)
             getCountOfRefs(data.telegramId)
-            getCompletedTasks()
         } catch (err) {
             console.log(err)
         }
@@ -235,8 +286,8 @@ const Account = ({hidden, opacity}) => {
             setUserData(tg.initDataUnsafe.user)
             tg.disableVerticalSwipes()
             // setUserImage(tg.initDataUnsafe.user.photo_url)
-            getUserInfo(tg.initDataUnsafe.user.id)
-            // getUserInfo("5961301232")
+            // getUserInfo(tg.initDataUnsafe.user.id)
+            getUserInfo("5961301232")
             
         }
     }, [])
